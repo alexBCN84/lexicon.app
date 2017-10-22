@@ -3,8 +3,8 @@ module.exports = class User {
         glossaries, entries, nOfEntries, nOfGlossaries, sharedWithMe) {
         this.name = name; // createUser
         this.email = email; // createUser
-        this.bio = bio; // updateBio
-        this.location = location; // update Location
+        this.bio = 'your bio is empty'; // updateBio
+        this.location = 'your location is empty'; // update Location
         this.interests = []; // add interests (grab also from other user)
         this.followers = []; // follow
         this.skills = []; // add skills (grab also from other user)
