@@ -16,8 +16,8 @@ const editList = (arr, index, property) => fn => arr[index][property] = arr[inde
 const copyFrom = (arr, index, property) => arr[index][property].join(', ');
 
 const follow = userA => userB => {
-    users[userA].following = users[userA].following.concat(users[userB].name);
-    users[userB].followers = users[userB].followers.concat(users[userA].name);
+    userA.following = userA.following.concat(userB.name);
+    userB.followers = userB.followers.concat(userA.name);
 };
 
 const setUpGlossary = (title, author) => {
@@ -29,6 +29,8 @@ const setUpEntries = (term, defOrTrans, author, glossary) => {
     entries = add(entries)(Entry.create(term, defOrTrans, author.name, glossary.title));
     author.entries = author.entries.concat(entries[entries.length - 1]);
     glossary.entries = glossary.entries.concat(entries[entries.length - 1]);
+    author.nOfEntries++;
+    glossary.nOfEntries++;
 };
 
 // instantiating some users
@@ -70,7 +72,7 @@ editList(users, 0, 'interests')(User.setInterests('literature, science'));
 editList(users, 1, 'interests')(User.setInterests(copyFrom(users, 0, 'interests')));
 
 // follow users and being follow 
-follow(0)(1);
+follow(users[0])(users[1]);
 
 // add skills to skills array
 editList(users, 0, 'skills')(User.setSkills('physics, writing'));
