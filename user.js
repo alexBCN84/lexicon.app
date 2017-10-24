@@ -13,22 +13,19 @@ const User = class {
         this.skills = [];
         this.following = [];
         this.glossaries = [];
-        this.entries = []; // CreateEntries
-        this.nOfEntries = 0; // createEntries
-        this.nOfGlossaries = 0; // createGlossaries
+        this.entries = [];
+        this.nOfEntries = 0;
+        this.nOfGlossaries = 0;
         this.sharedWithMe = []; // share
         this.userId = util.uuid();
     }
 };
 
-
-
-const create = (name, email) => new User(name, email);
+const instance = (name, email) => new User(name, email);
 const setBio = bio => bio;
 const setLocation = location => location;
 const setInterests = (...interests) => interests;
 const setSkills = (...skills) => skills;
 
 
-
-module.exports = { create, setBio, setLocation, setInterests, setSkills };
+module.exports = { instance, setBio, setLocation, setInterests, setSkills, };

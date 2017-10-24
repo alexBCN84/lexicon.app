@@ -17,8 +17,8 @@ const Glossary = class {
     }
 };
 
-const create = (title, author, glossaries) => new Glossary(title, author);
+const instance = (title, author, glossaries) => new Glossary(title, author);
 
 
 
-module.exports = { create };
+module.exports = { instance };

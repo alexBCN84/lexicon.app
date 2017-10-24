@@ -10,43 +10,53 @@ let users = [],
 
 
 // global functions
-const add = arr => fn => arr = arr.concat(fn);
-const updateElement = (arr, index, property) => fn => arr[index][property] = fn;
-const editList = (arr, index, property) => fn => arr[index][property] = arr[index][property].concat(fn);
+const add = (arr, fn) => arr = arr.concat(fn);
+const updateElement = (arr, index, property, fn) => arr[index][property] = fn;
+const editList = (arr, index, property, fn) => arr[index][property] = arr[index][property].concat(fn);
 const copyFrom = (arr, index, property) => arr[index][property].join(', ');
 
-const follow = userA => userB => {
+const follow = (userA, userB) => {
     userA.following = userA.following.concat(userB.name);
     userB.followers = userB.followers.concat(userA.name);
 };
 
 const setUpGlossary = (title, author) => {
-    glossaries = add(glossaries)(Glossary.create(title, author.name));
+    glossaries = add(glossaries, Glossary.instance(title, author.name));
     author.glossaries = author.glossaries.concat(glossaries[glossaries.length - 1]);
+    author.nOfGlossaries++;
 };
 
 const setUpEntries = (term, defOrTrans, author, glossary) => {
-    entries = add(entries)(Entry.create(term, defOrTrans, author.name, glossary.title));
+    entries = add(entries, Entry.instance(term, defOrTrans, author.name, glossary.title));
     author.entries = author.entries.concat(entries[entries.length - 1]);
     glossary.entries = glossary.entries.concat(entries[entries.length - 1]);
     author.nOfEntries++;
     glossary.nOfEntries++;
 };
 
+
+// user A can share resources with user B
+// const share = (userA, userB, glossariesOrEntries, itemShared) => {
+//     userB.sharedWithMe = userB.sharedWithMe.concat(userA[glossariesOrEntries][itemShared]);
+//     if (glossariesOrEntries === 'glossaries') glossaries[itemShared].xShared++;
+//     if (glossariesOrEntries === 'entries') entries[itemShared].xShared++;
+// };
+
+
 // instantiating some users
-users = add(users)(User.create('Jules Verne', 'Jules.Verne@gmail.com'));
-users = add(users)(User.create('Marie Curie', 'Marie.Curie@gmail.com'));
-users = add(users)(User.create('Nikola Tesla', 'nikola.tesla@gmail.com'));
+users = add(users, User.instance('Jules Verne', 'Jules.Verne@gmail.com'));
+users = add(users, User.instance('Marie Curie', 'Marie.Curie@gmail.com'));
+users = add(users, User.instance('Nikola Tesla', 'nikola.tesla@gmail.com'));
 
 
 // update Bios
-updateElement(users, 0, 'bio')(User.setBio('Born in Nantes, Kingdom of France February 08, 1828; DiedMarch 24, 1905. ' +
+updateElement(users, 0, 'bio', User.setBio('Born in Nantes, Kingdom of France February 08, 1828; DiedMarch 24, 1905. ' +
     'GenreFiction, Science Fiction, Fantasy. InfluencesEdgar Allan Poe, Victor Hugo, Alexandre Dumas, James Fenimore Cooper, ...more. ' +
     'Jules Gabriel Verne was a French author who pioneered the genre of science-fiction. ' +
     'He is best known for his novels Journey to the Center of the Earth (1864), ' +
     'Twenty Thousand Leagues Under the Sea (1870), and Around the World in Eighty Days (1873).'));
 
-updateElement(users, 1, 'bio')(User.setBio('7 November 1867 – 4 July 1934; born Maria Salomea Skłodowska; [ˈmarja salɔˈmɛa skwɔˈdɔfska]' +
+updateElement(users, 1, 'bio', User.setBio('7 November 1867 – 4 July 1934; born Maria Salomea Skłodowska; [ˈmarja salɔˈmɛa skwɔˈdɔfska]' +
     'was a Polish and naturalized-French physicist and chemist who conducted pioneering research on radioactivity.' +
     'She was the first woman to win a Nobel Prize, the first person and only woman to win twice, the only person to ' +
     'win a Nobel Prize in two different sciences, and was part of the Curie family legacy of five Nobel Prizes. ' +
@@ -54,31 +64,38 @@ updateElement(users, 1, 'bio')(User.setBio('7 November 1867 – 4 July 1934; bor
     'woman to be entombed on her own merits in the Panthéon in Paris.'));
 
 
-updateElement(users, 2, 'bio')(User.setBio('Nikola Tesla (/ˈtɛslə/;[2] Serbian Cyrillic: Никола Тесла Serbo-Croatian pronunciation: ' +
+updateElement(users, 2, 'bio', User.setBio('Nikola Tesla (/ˈtɛslə/;[2] Serbian Cyrillic: Никола Тесла Serbo-Croatian pronunciation: ' +
     '[nikoːla tesla]; 10 July 1856 – 7 January 1943) was a Serbian-American[3][4][5] inventor, electrical engineer,' +
     'mechanical engineer, physicist, and futurist who is best known for his contributions to the design of the' +
     'modern alternating current (AC) electricity supply system.'));
 
 
 // update users' location
-updateElement(users, 0, 'location')(User.setLocation('Nantes (France) - Amiens (France)'));
-updateElement(users, 1, 'location')(User.setLocation('Warsaw (Poland) - Passy (France)'));
-updateElement(users, 2, 'location')(User.setLocation('Austrian Empire) - New York (USA)'));
+updateElement(users, 0, 'location', User.setLocation('Nantes (France) - Amiens (France)'));
+updateElement(users, 1, 'location', User.setLocation('Warsaw (Poland) - Passy (France)'));
+updateElement(users, 2, 'location', User.setLocation('Austrian Empire) - New York (USA)'));
 
 // add interests to interests array
-editList(users, 0, 'interests')(User.setInterests('literature, science'));
+editList(users, 0, 'interests', User.setInterests('literature, science'));
 
 // copy interests from another user
-editList(users, 1, 'interests')(User.setInterests(copyFrom(users, 0, 'interests')));
+editList(users, 1, 'interests', User.setInterests(copyFrom(users, 0, 'interests')));
 
-// follow users and being follow 
-follow(users[0])(users[1]);
+// follow users and being followed 
+follow(users[0], users[1]);
 
 // add skills to skills array
-editList(users, 0, 'skills')(User.setSkills('physics, writing'));
+editList(users, 0, 'skills', User.setSkills('physics, writing'));
 
 // copy skills from another user
-editList(users, 1, 'skills')(User.setSkills(copyFrom(users, 0, 'skills')));
+editList(users, 1, 'skills', User.setSkills(copyFrom(users, 0, 'skills')));
+
+
+// share with other users
+
+// share(users[1], users[0], 'entries', 1);
+// userB.sharedWithMe = userB.sharedWithMe.concat(userA.glossaryOrEntry[itemIndex]);
+// users[0].sharedWithMe = users[0].sharedWithMe.concat(users[1].entries[1]);
 
 // instantiating some glossaries and linking them to author
 setUpGlossary('Jules Verne\'s famous quotes', users[0]);

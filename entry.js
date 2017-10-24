@@ -17,6 +17,6 @@ const Entry = class {
     }
 };
 
-const create = (term, defOrTrans, author, glossary) => new Entry(term, defOrTrans, author, glossary);
+const instance = (term, defOrTrans, author, glossary) => new Entry(term, defOrTrans, author, glossary);
 
-module.exports = { create };
+module.exports = { instance };
