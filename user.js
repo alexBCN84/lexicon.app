@@ -16,7 +16,7 @@ const User = class {
         this.entries = [];
         this.nOfEntries = 0;
         this.nOfGlossaries = 0;
-        this.sharedWithMe = []; // share
+        this.sharedWithMe = [];
         this.userId = util.uuid();
     }
 };

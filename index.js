@@ -34,13 +34,23 @@ const setUpEntries = (term, defOrTrans, author, glossary) => {
     glossary.nOfEntries++;
 };
 
+// users can like other users glossaries or entries
+const like = (targetGlossaryOrEntry) => targetGlossaryOrEntry.likes++;
 
 // user A can share resources with user B
-// const share = (userA, userB, glossariesOrEntries, itemShared) => {
-//     userB.sharedWithMe = userB.sharedWithMe.concat(userA[glossariesOrEntries][itemShared]);
-//     if (glossariesOrEntries === 'glossaries') glossaries[itemShared].xShared++;
-//     if (glossariesOrEntries === 'entries') entries[itemShared].xShared++;
-// };
+const share = (userA, userB, glossariesOrEntries, itemShared) => {
+    userB.sharedWithMe = userB.sharedWithMe.concat(userA[glossariesOrEntries][itemShared]);
+    if (glossariesOrEntries === 'glossaries') glossaries[itemShared].xShared++;
+    if (glossariesOrEntries === 'entries') entries[itemShared].xShared++;
+};
+
+
+// review glossaries
+const reviewGlossary = (glossaryIndex, review) => editList(glossaries, glossaryIndex, 'reviews', Glossary.setReview(review));
+
+
+// set categories for entries
+const setCategories = (entryIndex, category) => editList(entries, entryIndex, 'categories', Entry.setCategories(category));
 
 
 // instantiating some users
@@ -91,16 +101,17 @@ editList(users, 0, 'skills', User.setSkills('physics, writing'));
 editList(users, 1, 'skills', User.setSkills(copyFrom(users, 0, 'skills')));
 
 
-// share with other users
-
-// share(users[1], users[0], 'entries', 1);
-// userB.sharedWithMe = userB.sharedWithMe.concat(userA.glossaryOrEntry[itemIndex]);
-// users[0].sharedWithMe = users[0].sharedWithMe.concat(users[1].entries[1]);
-
 // instantiating some glossaries and linking them to author
 setUpGlossary('Jules Verne\'s famous quotes', users[0]);
 setUpGlossary('Marie Curie\'s famous quotes', users[1]);
 setUpGlossary('Nikola Tesla\'s famous quotes', users[2]);
+
+// update glossary's description
+updateElement(glossaries, 0, 'description', Glossary.setDescription('This glossary is devoted to collect famous and inspiring quotes from Jules Verne'));
+
+// update area of knwoledge under which glossaries are classified
+// update glossary's description
+updateElement(glossaries, 0, 'area', Glossary.setArea('Philosophy of life, inspirational quotes.'));
 
 // instantiate some entries
 setUpEntries('Man is never perfect nor contented.',
@@ -127,6 +138,37 @@ setUpEntries('Our virtues and our failings are inseparable, like force and matte
 setUpEntries('In the twenty-first century, the robot will take the place which slave labor occupied in ancient civilization.',
     'En el siglo XXI, el robot tomará el lugar que el trabajo esclavo ocupó en la civilización antigua.',
     users[2], glossaries[2]);
+
+// share entry with other users
+share(users[0], users[2], 'entries', 1);
+
+// share a glossary with others
+share(users[0], users[1], 'glossaries', 0);
+
+// review glossaries
+reviewGlossary(0, 'excellent and inspirational');
+reviewGlossary(1, 'a must to have.');
+
+// set categories for entries
+setCategories(0, 'human debilities');
+
+// liking glossaries
+like(users[0].glossaries[0]);
+like(users[0].glossaries[0]);
+like(users[0].glossaries[0]);
+like(users[1].glossaries[0]);
+like(users[1].glossaries[0]);
+like(users[0].glossaries[0]);
+like(users[2].glossaries[0]);
+
+// liking entries
+like(users[0].entries[0]);
+like(users[0].entries[0]);
+like(users[0].entries[0]);
+like(users[1].entries[0]);
+like(users[1].entries[1]);
+like(users[0].entries[1]);
+like(users[2].entries[0]);
 
 
 // Database storing and retrieving
