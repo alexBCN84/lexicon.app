@@ -1,10 +1,17 @@
-// I will create functions save and load here
-const fs = require('fs'); // fs is the short for file system
-module.exports.save = people => {
-    fs.writeFileSync('./data.json', JSON.stringify(people));
-    console.log(people);
-};
+const fs = require('fs');
+const stringify = require('json-stringify-safe');
 
-module.exports.load = () => {
-    return JSON.parse(fs.readFileSync('./data.json', 'utf8'));
-};
+save = (file, component) => fs.writeFileSync(file, stringify(component));
+load = file => JSON.parse(fs.readFileSync(file, 'utf8'));
+
+const dataUser = './dataUser.json';
+exports.saveUser = user => save(dataUser, user);
+exports.loadUser = () => JSON.parse(fs.readFileSync(dataUser, 'utf8'));
+
+const dataGlossary = './dataGlossary.json';
+exports.saveGlossary = glossary => save(dataGlossary, glossary);
+exports.loadGlossary = () => JSON.parse(fs.readFileSync(dataGlossary, 'utf8'));
+
+const dataEntry = './dataEntry.json';
+exports.saveEntry = entry => save(dataEntry, entry);
+exports.loadEntry = () => JSON.parse(fs.readFileSync(dataEntry, 'utf8'));

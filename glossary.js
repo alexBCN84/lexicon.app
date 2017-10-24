@@ -1,15 +1,24 @@
-module.exports = class Glossary {
+const util = require('./util');
+
+const Glossary = class {
     constructor(title, author, description, area, likes, xShared, status,
-        xCopied, noOfEntries, rating, reviews) {
-        this.title = title; // createGlossary
-        this.author = author; // createGlossary
-        this.description = 'enter a description.'; // describeGlossary
-        this.area = area; // updateLocation
+        xCopied, noOfEntries, rating, reviews, glossaryId) {
+        this.title = title;
+        this.author = author;
+        this.description = 'edit to add description'; // describeGlossary
+        this.area = area; // addLocation
         this.likes = 0; // like
         this.xShared = 0; // share
-        this.entries = []; // createEntries
-        this.nOfEntries = 0; // createEntries
+        this.entries = []; // addEntries
+        this.nOfEntries = 0; // addEntries
         this.rating = rating; // rate
         this.reviews = []; // addReview
+        this.glossaryId = util.uuid();
     }
 };
+
+const create = (title, author, glossaries) => new Glossary(title, author);
+
+
+
+module.exports = { create };

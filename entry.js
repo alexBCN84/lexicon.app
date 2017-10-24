@@ -1,15 +1,22 @@
-module.exports = class Entry {
-    constructor(term, author, defOrTrans, categories, glossary, likes, xShared, xCopied,
-        status, relatedEntries, relatedTerms, mnemonics) {
-        this.term = term;
-        this.author = author;
-        this.defOrTrans = defOrTrans;
-        this.glossary = glossary;
+const util = require('./util');
+
+const Entry = class {
+    constructor(term, defOrTrans, author, glossary, categories, likes, xShared, xCopied,
+        status, relatedEntries, relatedTerms, mnemonics, entryId) {
+        this.term = term; // done
+        this.defOrTrans = defOrTrans; // done
+        this.author = author; // done
+        this.glossary = glossary; // done
         this.categories = [];
-        this.likes = 0;
-        this.xShared = 0;
+        this.likes = 0; // like
+        this.xShared = 0; // share
         this.relatedEntries = [];
         this.relatedTerms = [];
         this.mnemonics = [];
+        this.entryId = util.uuid();
     }
 };
+
+const create = (term, defOrTrans, author, glossary) => new Entry(term, defOrTrans, author, glossary);
+
+module.exports = { create };

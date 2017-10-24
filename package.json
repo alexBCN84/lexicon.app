@@ -1,28 +1,29 @@
 {
-  "name": "lexicon",
-  "version": "1.0.0",
-  "description": "Lexicon is an app intended to create, manage, share and learn customized vocabulary. Users can create glossaries individually, collaboratively or both. The app will also provide a review system based on spaced repetition to practice and recall vocabulary. Basing our system on cognitive learning techniques, we aim to bring those new terms from short-time memory to long-term and even long-life memory.",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/alexBCN84/lexicon.app.git"
-  },
-  "keywords": [
-    "terminology",
-    "manager",
-    "glossaries",
-    "vocabulary"
-  ],
-  "author": "Alejandro Gines Martinez <alejandro.ginesmartinez@gmail.com>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/alexBCN84/lexicon.app/issues"
-  },
-  "homepage": "https://github.com/alexBCN84/lexicon.app#readme",
-  "dependencies": {
-    "ansi-red": "^0.1.1"
-  }
+    "name": "lexicon",
+    "version": "1.0.0",
+    "description": "Lexicon is an app intended to create, manage, share and learn customized vocabulary. Users can create glossaries individually, collaboratively or both. The app will also provide a review system based on spaced repetition to practice and recall vocabulary. Basing our system on cognitive learning techniques, we aim to bring those new terms from short-time memory to long-term and even long-life memory.",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/alexBCN84/lexicon.app.git"
+    },
+    "keywords": [
+        "terminology",
+        "manager",
+        "glossaries",
+        "vocabulary"
+    ],
+    "author": "Alejandro Gines Martinez <alejandro.ginesmartinez@gmail.com>",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/alexBCN84/lexicon.app/issues"
+    },
+    "homepage": "https://github.com/alexBCN84/lexicon.app#readme",
+    "dependencies": {
+        "ansi-red": "^0.1.1",
+        "json-stringify-safe": "5.0.1"
+    }
 }

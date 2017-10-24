@@ -1,18 +1,34 @@
-module.exports = class User {
+const util = require('./util');
+const users = require('./index');
+
+const User = class {
     constructor(name, email, bio, location, interests, followers, skills, following,
-        glossaries, entries, nOfEntries, nOfGlossaries, sharedWithMe) {
-        this.name = name; // createUser
-        this.email = email; // createUser
-        this.bio = 'your bio is empty'; // updateBio
-        this.location = 'your location is empty'; // update Location
-        this.interests = []; // add interests (grab also from other user)
-        this.followers = []; // follow
-        this.skills = []; // add skills (grab also from other user)
-        this.following = []; // follow
-        this.glossaries = []; // createGlossary
+        glossaries, entries, nOfEntries, nOfGlossaries, sharedWithMe, userId) {
+        this.name = name;
+        this.email = email;
+        this.bio = 'edit to include your bio';
+        this.location = 'edit to include your location';
+        this.interests = [];
+        this.followers = [];
+        this.skills = [];
+        this.following = [];
+        this.glossaries = [];
         this.entries = []; // CreateEntries
         this.nOfEntries = 0; // createEntries
         this.nOfGlossaries = 0; // createGlossaries
         this.sharedWithMe = []; // share
+        this.userId = util.uuid();
     }
 };
+
+
+
+const create = (name, email) => new User(name, email);
+const setBio = bio => bio;
+const setLocation = location => location;
+const setInterests = (...interests) => interests;
+const setSkills = (...skills) => skills;
+
+
+
+module.exports = { create, setBio, setLocation, setInterests, setSkills };
