@@ -159,6 +159,16 @@ glossaries[0].setRating(5);
 glossaries[0].setRating(9);
 glossaries[0].setRating(10);
 
+// enter related entries to this one
+
+entries[0].setRelatedEntries(entries[1], entries[2]);
+
+// relatedWords here
+entries[0].setRelatedWords('relatedWord1', 'relatedWord2');
+
+// enter trick to help you remember a word or expression
+entries[0].setMnemonics('my mnemonics technique');
+
 // Database storing and retrieving
 Database.saveUser(users);
 const loadFileUsers = Database.loadUser();

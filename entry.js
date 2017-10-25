@@ -10,10 +10,13 @@ module.exports = class Entry {
         this.categories = [];
         this.likes = 0;
         this.xShared = 0;
-        this.relatedEntries = []; // missing
-        this.relatedTerms = []; // missing
-        this.mnemonics = []; // missing
+        this.relatedEntries = [];
+        this.relatedWords = [];
+        this.mnemonics = [];
         this.entryId = util.uuid();
     }
     setCategories(category) { this.categories = this.categories.concat(category); }
+    setRelatedEntries(...relatedEntries) { this.relatedEntries = this.relatedEntries.concat(...relatedEntries); }
+    setRelatedWords(...relatedWords) { this.relatedWords = this.relatedWords.concat(...relatedWords); }
+    setMnemonics(...mnemonics) { this.mnemonics = this.mnemonics.concat(...mnemonics); }
 };

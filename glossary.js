@@ -11,7 +11,7 @@ module.exports = class Glossary {
         this.xShared = 0;
         this.entries = [];
         this.nOfEntries = 0;
-        this.rating = [{ ratingScores: [] }, { averageRate: 0 }, { median: 0 }]; // rate
+        this.rating = [{ ratingScores: [] }, { averageRate: 0 }, { median: 0 }];
         this.reviews = [];
         this.glossaryId = util.uuid();
     }
