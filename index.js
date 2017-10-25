@@ -8,21 +8,17 @@ let users = [],
     glossaries = [],
     entries = [];
 
-
 // global functions
 const add = (arr, fn) => arr = arr.concat(fn);
-const updateElement = (arr, index, property, fn) => arr[index][property] = fn;
-const editList = (arr, index, property, fn) => arr[index][property] = arr[index][property].concat(fn);
-const copyFrom = (arr, index, property) => arr[index][property].join(', ');
 
 const setUpGlossary = (title, author) => {
-    glossaries = add(glossaries, Glossary.instance(title, author.name));
+    glossaries = add(glossaries, new Glossary(title, author.name));
     author.glossaries = author.glossaries.concat(glossaries[glossaries.length - 1]);
     author.nOfGlossaries++;
 };
 
 const setUpEntries = (term, defOrTrans, author, glossary) => {
-    entries = add(entries, Entry.instance(term, defOrTrans, author.name, glossary.title));
+    entries = add(entries, new Entry(term, defOrTrans, author.name, glossary.title));
     author.entries = author.entries.concat(entries[entries.length - 1]);
     glossary.entries = glossary.entries.concat(entries[entries.length - 1]);
     author.nOfEntries++;
@@ -35,15 +31,6 @@ const share = (sender, recipient, materialClass, materialIndex) => {
     if (materialClass === glossaries) materialClass[materialIndex].xShared++;
     if (materialClass === entries) materialClass[materialIndex].xShared++;
 };
-
-
-
-// review glossaries
-const reviewGlossary = (glossaryIndex, review) => editList(glossaries, glossaryIndex, 'reviews', Glossary.setReview(review));
-
-
-// set categories for entries
-const setCategories = (entryIndex, category) => editList(entries, entryIndex, 'categories', Entry.setCategories(category));
 
 
 // instantiating some users
@@ -104,11 +91,11 @@ setUpGlossary('Marie Curie\'s famous quotes', users[1]);
 setUpGlossary('Nikola Tesla\'s famous quotes', users[2]);
 
 // update glossary's description
-updateElement(glossaries, 0, 'description', Glossary.setDescription('This glossary is devoted to collect famous and inspiring quotes from Jules Verne'));
+glossaries[0].setDescription('This glossary is devoted to collect famous and inspiring quotes from Jules Verne');
 
 // update area of knwoledge under which glossaries are classified
-// update glossary's description
-updateElement(glossaries, 0, 'area', Glossary.setArea('Philosophy of life, inspirational quotes.'));
+
+glossaries[0].setArea('Philosophy of life, inspirational quotes.');
 
 // instantiate some entries
 setUpEntries('Man is never perfect nor contented.',
@@ -142,11 +129,11 @@ share(users[0], users[2], entries, 1);
 // share a glossary with others
 share(users[0], users[2], glossaries, 0);
 // review glossaries
-reviewGlossary(0, 'excellent and inspirational');
-reviewGlossary(1, 'a must to have.');
+glossaries[0].setReview('excellent and inspirational');
+glossaries[1].setReview('a must to have.');
 
 // set categories for entries
-setCategories(0, 'human debilities');
+entries[0].setCategories('human debilities');
 
 // liking glossaries
 users[0].likes(glossaries[0]);
@@ -166,6 +153,11 @@ users[1].likes(entries[1]);
 users[0].likes(entries[1]);
 users[2].likes(entries[0]);
 
+// enter a rating for a glossary
+glossaries[0].setRating(3);
+glossaries[0].setRating(5);
+glossaries[0].setRating(9);
+glossaries[0].setRating(10);
 
 // Database storing and retrieving
 Database.saveUser(users);
