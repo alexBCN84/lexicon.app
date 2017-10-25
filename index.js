@@ -15,11 +15,6 @@ const updateElement = (arr, index, property, fn) => arr[index][property] = fn;
 const editList = (arr, index, property, fn) => arr[index][property] = arr[index][property].concat(fn);
 const copyFrom = (arr, index, property) => arr[index][property].join(', ');
 
-const follow = (userA, userB) => {
-    userA.following = userA.following.concat(userB.name);
-    userB.followers = userB.followers.concat(userA.name);
-};
-
 const setUpGlossary = (title, author) => {
     glossaries = add(glossaries, Glossary.instance(title, author.name));
     author.glossaries = author.glossaries.concat(glossaries[glossaries.length - 1]);
@@ -34,15 +29,13 @@ const setUpEntries = (term, defOrTrans, author, glossary) => {
     glossary.nOfEntries++;
 };
 
-// users can like other users glossaries or entries
-const like = (targetGlossaryOrEntry) => targetGlossaryOrEntry.likes++;
-
 // user A can share resources with user B
-const share = (userA, userB, glossariesOrEntries, itemShared) => {
-    userB.sharedWithMe = userB.sharedWithMe.concat(userA[glossariesOrEntries][itemShared]);
-    if (glossariesOrEntries === 'glossaries') glossaries[itemShared].xShared++;
-    if (glossariesOrEntries === 'entries') entries[itemShared].xShared++;
+const share = (sender, recipient, materialClass, materialIndex) => {
+    sender.shares(materialClass, materialIndex, recipient);
+    if (materialClass === glossaries) materialClass[materialIndex].xShared++;
+    if (materialClass === entries) materialClass[materialIndex].xShared++;
 };
+
 
 
 // review glossaries
@@ -54,51 +47,55 @@ const setCategories = (entryIndex, category) => editList(entries, entryIndex, 'c
 
 
 // instantiating some users
-users = add(users, User.instance('Jules Verne', 'Jules.Verne@gmail.com'));
-users = add(users, User.instance('Marie Curie', 'Marie.Curie@gmail.com'));
-users = add(users, User.instance('Nikola Tesla', 'nikola.tesla@gmail.com'));
+users = add(users, new User('Jules Verne', 'Jules.Verne@gmail.com'));
+users = add(users, new User('Marie Curie', 'Marie.Curie@gmail.com'));
+users = add(users, new User('Nikola Tesla', 'nikola.tesla@gmail.com'));
 
 
 // update Bios
-updateElement(users, 0, 'bio', User.setBio('Born in Nantes, Kingdom of France February 08, 1828; DiedMarch 24, 1905. ' +
+users[0].setBio('Born in Nantes, Kingdom of France February 08, 1828; DiedMarch 24, 1905. ' +
     'GenreFiction, Science Fiction, Fantasy. InfluencesEdgar Allan Poe, Victor Hugo, Alexandre Dumas, James Fenimore Cooper, ...more. ' +
     'Jules Gabriel Verne was a French author who pioneered the genre of science-fiction. ' +
     'He is best known for his novels Journey to the Center of the Earth (1864), ' +
-    'Twenty Thousand Leagues Under the Sea (1870), and Around the World in Eighty Days (1873).'));
+    'Twenty Thousand Leagues Under the Sea (1870), and Around the World in Eighty Days (1873).')
 
-updateElement(users, 1, 'bio', User.setBio('7 November 1867 – 4 July 1934; born Maria Salomea Skłodowska; [ˈmarja salɔˈmɛa skwɔˈdɔfska]' +
+
+users[1].setBio('7 November 1867 – 4 July 1934; born Maria Salomea Skłodowska; [ˈmarja salɔˈmɛa skwɔˈdɔfska]' +
     'was a Polish and naturalized-French physicist and chemist who conducted pioneering research on radioactivity.' +
     'She was the first woman to win a Nobel Prize, the first person and only woman to win twice, the only person to ' +
     'win a Nobel Prize in two different sciences, and was part of the Curie family legacy of five Nobel Prizes. ' +
     'She was also the first woman to become a professor at the University of Paris, and in 1995 became the first ' +
-    'woman to be entombed on her own merits in the Panthéon in Paris.'));
+    'woman to be entombed on her own merits in the Panthéon in Paris.');
 
 
-updateElement(users, 2, 'bio', User.setBio('Nikola Tesla (/ˈtɛslə/;[2] Serbian Cyrillic: Никола Тесла Serbo-Croatian pronunciation: ' +
+users[2].setBio('Nikola Tesla (/ˈtɛslə/;[2] Serbian Cyrillic: Никола Тесла Serbo-Croatian pronunciation: ' +
     '[nikoːla tesla]; 10 July 1856 – 7 January 1943) was a Serbian-American[3][4][5] inventor, electrical engineer,' +
     'mechanical engineer, physicist, and futurist who is best known for his contributions to the design of the' +
-    'modern alternating current (AC) electricity supply system.'));
+    'modern alternating current (AC) electricity supply system.');
 
 
-// update users' location
-updateElement(users, 0, 'location', User.setLocation('Nantes (France) - Amiens (France)'));
-updateElement(users, 1, 'location', User.setLocation('Warsaw (Poland) - Passy (France)'));
-updateElement(users, 2, 'location', User.setLocation('Austrian Empire) - New York (USA)'));
+// // update users' location
+users[0].setLocation('Nantes (France) - Amiens (France)');
+users[1].setLocation('Warsaw (Poland) - Passy (France)');
+users[2].setLocation('Austrian Empire) - New York (USA)');
 
 // add interests to interests array
-editList(users, 0, 'interests', User.setInterests('literature, science'));
+users[0].setInterests('literature', 'science');
 
 // copy interests from another user
-editList(users, 1, 'interests', User.setInterests(copyFrom(users, 0, 'interests')));
+users[1].setInterests(users[0].interests[0]);
 
-// follow users and being followed 
-follow(users[0], users[1]);
+// // follow users and being followed 
+users[0].follows(users[1]);
+users[0].follows(users[2]);
+users[1].follows(users[2]);
+users[1].follows(users[0]);
 
 // add skills to skills array
-editList(users, 0, 'skills', User.setSkills('physics, writing'));
+users[0].setSkills('physics', 'writing');
 
 // copy skills from another user
-editList(users, 1, 'skills', User.setSkills(copyFrom(users, 0, 'skills')));
+users[1].setSkills(users[0].skills);
 
 
 // instantiating some glossaries and linking them to author
@@ -140,11 +137,10 @@ setUpEntries('In the twenty-first century, the robot will take the place which s
     users[2], glossaries[2]);
 
 // share entry with other users
-share(users[0], users[2], 'entries', 1);
+share(users[0], users[2], entries, 1);
 
 // share a glossary with others
-share(users[0], users[1], 'glossaries', 0);
-
+share(users[0], users[2], glossaries, 0);
 // review glossaries
 reviewGlossary(0, 'excellent and inspirational');
 reviewGlossary(1, 'a must to have.');
@@ -153,22 +149,22 @@ reviewGlossary(1, 'a must to have.');
 setCategories(0, 'human debilities');
 
 // liking glossaries
-like(users[0].glossaries[0]);
-like(users[0].glossaries[0]);
-like(users[0].glossaries[0]);
-like(users[1].glossaries[0]);
-like(users[1].glossaries[0]);
-like(users[0].glossaries[0]);
-like(users[2].glossaries[0]);
+users[0].likes(glossaries[0]);
+users[0].likes(glossaries[0]);
+users[0].likes(glossaries[0]);
+users[1].likes(glossaries[0]);
+users[1].likes(glossaries[0]);
+users[0].likes(glossaries[0]);
+users[2].likes(glossaries[0]);
 
 // liking entries
-like(users[0].entries[0]);
-like(users[0].entries[0]);
-like(users[0].entries[0]);
-like(users[1].entries[0]);
-like(users[1].entries[1]);
-like(users[0].entries[1]);
-like(users[2].entries[0]);
+users[0].likes(entries[0]);
+users[0].likes(entries[0]);
+users[0].likes(entries[0]);
+users[1].likes(entries[0]);
+users[1].likes(entries[1]);
+users[0].likes(entries[1]);
+users[2].likes(entries[0]);
 
 
 // Database storing and retrieving
