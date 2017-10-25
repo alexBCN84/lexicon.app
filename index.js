@@ -9,16 +9,15 @@ let users = [],
     entries = [];
 
 // global functions
-const add = (arr, fn) => arr = arr.concat(fn);
 
 const setUpGlossary = (title, author) => {
-    glossaries = add(glossaries, new Glossary(title, author.name));
+    glossaries = glossaries.concat(new Glossary(title, author.name));
     author.glossaries = author.glossaries.concat(glossaries[glossaries.length - 1]);
     author.nOfGlossaries++;
 };
 
 const setUpEntries = (term, defOrTrans, author, glossary) => {
-    entries = add(entries, new Entry(term, defOrTrans, author.name, glossary.title));
+    entries = entries.concat(new Entry(term, defOrTrans, author.name, glossary.title));
     author.entries = author.entries.concat(entries[entries.length - 1]);
     glossary.entries = glossary.entries.concat(entries[entries.length - 1]);
     author.nOfEntries++;
@@ -34,9 +33,9 @@ const share = (sender, recipient, materialClass, materialIndex) => {
 
 
 // instantiating some users
-users = add(users, new User('Jules Verne', 'Jules.Verne@gmail.com'));
-users = add(users, new User('Marie Curie', 'Marie.Curie@gmail.com'));
-users = add(users, new User('Nikola Tesla', 'nikola.tesla@gmail.com'));
+users = users.concat(new User('Jules Verne', 'Jules.Verne@gmail.com'));
+users = users.concat(new User('Marie Curie', 'Marie.Curie@gmail.com'));
+users = users.concat(new User('Nikola Tesla', 'nikola.tesla@gmail.com'));
 
 
 // update Bios
