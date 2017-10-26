@@ -23,7 +23,6 @@ module.exports = class Glossary {
         this.rating[1].averageRate = (this.rating[0].ratingScores.reduce((previous, current) =>
             current += previous)) / this.rating[0].ratingScores.length;
     }
-
     setMedian() {
         this.rating[0].ratingScores.sort((a, b) => a - b);
         let lowMiddle = Math.floor((this.rating[0].ratingScores.length - 1) / 2);
@@ -34,7 +33,6 @@ module.exports = class Glossary {
         score = parseInt(score);
         if (score > 10) return console.log('INPUT ERROR: YOU NEED TO ENTER A VALUE BETWEEN 1 AND 10. RUN THIS FUNCTION AGAIN');
         this.rating[0].ratingScores = this.rating[0].ratingScores.concat(score);
-
         this.setRatingAverage();
         this.setMedian();
     }

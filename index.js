@@ -24,7 +24,7 @@ const setUpEntries = (term, defOrTrans, author, glossary) => {
     glossary.nOfEntries++;
 };
 
-// user A can share resources with user B
+
 const share = (sender, recipient, materialClass, materialIndex) => {
     sender.shares(materialClass, materialIndex, recipient);
     if (materialClass === glossaries) materialClass[materialIndex].xShared++;
