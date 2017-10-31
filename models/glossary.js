@@ -1,19 +1,21 @@
-const util = require('./util');
+const util = require('./../util');
 
 module.exports = class Glossary {
-    constructor(title, author, description, area, likes, xShared, status,
-        xCopied, noOfEntries, rating, reviews, glossaryId) {
+    constructor(title, author, description, area, likes = 0, xShared = 0, status = 'private',
+        entries = [], nOfEntries = 0, rating = [{ ratingScores: [] }, { averageRate: 0 }, { median: 0 }],
+        reviews = [], glossaryId = util.uuid()) {
         this.title = title;
         this.author = author;
-        this.description = 'edit to add description';
+        this.description = description;
         this.area = area;
-        this.likes = 0;
-        this.xShared = 0;
-        this.entries = [];
-        this.nOfEntries = 0;
-        this.rating = [{ ratingScores: [] }, { averageRate: 0 }, { median: 0 }];
-        this.reviews = [];
-        this.glossaryId = util.uuid();
+        this.likes = likes;
+        this.xShared = xShared;
+        this.status = status;
+        this.entries = entries;
+        this.nOfEntries = nOfEntries;
+        this.rating = rating;
+        this.reviews = reviews;
+        this.glossaryId = glossaryId;
     }
 
     setDescription(description) { this.description = description; }
@@ -35,5 +37,25 @@ module.exports = class Glossary {
         this.rating[0].ratingScores = this.rating[0].ratingScores.concat(score);
         this.setRatingAverage();
         this.setMedian();
+    }
+
+    print(property) {
+        console.log(this[property]);
+    }
+    static create(obj) {
+        return new Glossary(
+            obj.title,
+            obj.author,
+            obj.description,
+            obj.area,
+            obj.likes,
+            obj.xShared,
+            obj.status,
+            obj.entries,
+            obj.noOfEntries,
+            obj.rating,
+            obj.reviews,
+            obj.glossaryId
+        );
     }
 };
