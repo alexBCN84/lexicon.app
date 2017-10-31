@@ -1,24 +1,26 @@
-const User = require('./user');
-const Glossary = require('./glossary');
-const Entry = require('./entry');
-const Database = require('./database');
+const usersService = require('./services/users');
+const glossariesService = require('./services/glossaries');
+const entriesService = require('./services/entries');
+const userModel = require('./models/user');
+const glossaryModel = require('./models/glossary');
+const entryModel = require('./models/entry');
 
 
 
-// Retrieving from Database
-const loadedUsers = Database.loadUser();
-const loadedGlossaries = Database.loadGlossary();
-const loadedEntries = Database.loadEntry();
+// Retrieving from database
 
+const loadedUsers = usersService.loadUser();
+const loadedGlossaries = glossariesService.loadGlossary();
+const loadedEntries = entriesService.loadEntry();
 
-// casting User objects back to classes
-const returnedUsers = loadedUsers.map(User.create);
-const names = returnedUsers.map(user => user.printName());
+// Casting to objects to read
 
-// casting Glossary objects back to classes
-const returnedGlossaries = loadedGlossaries.map(Glossary.create);
-const titles = returnedGlossaries.map(glossary => glossary.print('title'));
+const convertedUsers = loadedUsers.map(userModel.create);
+const convertedGlossaries = loadedGlossaries.map(glossaryModel.create);
+const convertedEntries = loadedEntries.map(entryModel.create);
 
-// casting Entries objects back to classes
-const returnedEntries = loadedEntries.map(Entry.create);
-const terms = returnedEntries.map(entry => entry.print('term'));
+// list objects by property
+
+// list :: ([Object], String) → String
+const list = (objects, byProperty) => objects.map(object => object.print(byProperty));
+list(convertedUsers, 'name');
