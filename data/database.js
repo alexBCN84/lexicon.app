@@ -1,6 +1,23 @@
 const fs = require('fs');
 const stringify = require('json-stringify-safe');
 
+module.exports.saveFile = async(filename, component) => {
+    return new Promise((resolve, reject) => {
+        fs.writeFile(filename, stringify(component, null, 1), (err, contents) => {
+            if (err) return reject(err);
 
-module.exports.save = (file, component) => fs.writeFileSync(file, stringify(component, null, 1));
-module.exports.load = file => JSON.parse(fs.readFileSync(file, 'utf8'));
+            resolve(contents);
+        })
+    })
+};
+
+
+module.exports.readFile = async(filename) => {
+    return new Promise((resolve, reject) => {
+        fs.readFile(filename, 'utf8', (err, contents) => {
+            if (err) return reject(err);
+
+            resolve(JSON.parse(contents));
+        })
+    })
+};

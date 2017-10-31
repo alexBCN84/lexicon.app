@@ -1,5 +1,5 @@
 const Database = require('../data/database');
 const dataUser = './data/dataUser.json';
 
-exports.saveUser = user => Database.save(dataUser, user);
-exports.loadUser = () => Database.load(dataUser);
+exports.saveUser = async(user) => await Database.saveFile(dataUser, user);
+exports.loadUser = async() => await Database.readFile(dataUser);
