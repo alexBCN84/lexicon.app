@@ -7,29 +7,20 @@ const entryModel = require('./models/entry');
 
 
 
-// Retrieving from database and casting to new objects
+// Retrieving from database
 
-const loadedData = async() => {
-    const loadedUsers = await usersService.loadUser();
-    const convertedUsers = loadedUsers.map(userModel.create);
-
-    const loadedGlossaries = await glossariesService.loadGlossary();
-    const convertedGlossaries = loadedGlossaries.map(glossaryModel.create);
-
-    const loadedEntries = await entriesService.loadEntry();
-    const convertedEntries = loadedEntries.map(entryModel.create);
-    // list objects by property
-
-    // list :: ([Object], String) → String
-    const list = (objects, byProperty) => objects.map(object => object.print(byProperty));
-    list(convertedUsers, 'name');
-    list(convertedUsers, 'glossaries');
-}
-
-loadedData();
-
-
-
-
+const loadedUsers = usersService.loadUser();
+const loadedGlossaries = glossariesService.loadGlossary();
+const loadedEntries = entriesService.loadEntry();
 
 // Casting to objects to read
+
+const convertedUsers = loadedUsers.map(userModel.create);
+const convertedGlossaries = loadedGlossaries.map(glossaryModel.create);
+const convertedEntries = loadedEntries.map(entryModel.create);
+
+// list objects by property
+
+// list :: ([Object], String) → String
+const list = (objects, byProperty) => objects.map(object => object.print(byProperty));
+list(convertedUsers, 'name');
