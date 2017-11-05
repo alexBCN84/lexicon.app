@@ -30,25 +30,25 @@ async function add(entry) {
     return entry
 }
 
-async function del(personId) {
-    const allPeople = await findAll()
-    const personIndex = allPeople.findIndex(p => p.id == personId)
-    if (personIndex < 0) return
+async function del(entryId) {
+    const allEntries = await findAll()
+    const entryIndex = allEntries.findIndex(e => e.id == entryId)
+    if (entryIndex < 0) return
 
-    allPeople.splice(personIndex, 1)
+    allEntries.splice(entryIndex, 1)
 
-    saveAll(allPeople)
+    saveAll(allEntries)
 }
 
-async function find(personId) {
-    const allPeople = await findAll()
+async function find(entryId) {
+    const allEntries = await findAll()
 
-    return allPeople.find(p => p.id == personId)
+    return allEntries.find(e => e.id == entryId)
 }
 
-function saveAll(people) {
+function saveAll(entries) {
     return new Promise((resolve, reject) => {
-        fs.writeFile(dbPath, JSON.stringify(people), (err, file) => {
+        fs.writeFile(dbPathEntry, JSON.stringify(entries), (err, file) => {
             if (err) return reject(err)
 
             resolve()

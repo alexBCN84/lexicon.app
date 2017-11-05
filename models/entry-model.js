@@ -1,8 +1,9 @@
 const util = require('./../util');
 
 module.exports = class Entry {
-    constructor(term, defOrTrans, author, glossary, categories = [], likes = 0, xShared = 0,
-        status = 'private', relatedEntries = [], relatedWords = [], mnemonics = [], entryId = util.uuid()) {
+    constructor(id, term, defOrTrans, author, glossary, categories = [], likes = 0, xShared = 0,
+        status = 'private', relatedEntries = [], relatedWords = [], mnemonics = [], uuid = util.uuid()) {
+        this.id = id;
         this.term = term;
         this.defOrTrans = defOrTrans;
         this.author = author;
@@ -14,7 +15,7 @@ module.exports = class Entry {
         this.relatedEntries = relatedEntries;
         this.relatedWords = relatedWords;
         this.mnemonics = mnemonics;
-        this.entryId = entryId;
+        this.uuid = uuid;
     }
     setCategories(category) { this.categories = this.categories.concat(category); }
     setRelatedEntries(...relatedEntries) { this.relatedEntries = this.relatedEntries.concat(...relatedEntries); }
@@ -26,6 +27,7 @@ module.exports = class Entry {
     }
     static create(obj) {
         return new Entry(
+            obj.id,
             obj.term,
             obj.defOrTrans,
             obj.author,
@@ -37,7 +39,7 @@ module.exports = class Entry {
             obj.relatedEntries,
             obj.relatedWords,
             obj.mnemonics,
-            obj.entryI
+            obj.uuid
         );
     }
 };
