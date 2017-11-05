@@ -1,0 +1,22 @@
+extends layout
+
+block content
+    h1 My entries
+    if entries.length
+        p Here are the entries:
+        table
+            thead
+                td ID
+                td Term
+                td Author
+            each entry in entries
+                tr
+                    td #{entry.entryId}
+                    td #{entry.term}
+                    td #{entry.author}
+
+        pre= JSON.stringify(entries, null, 2)
+    else
+        p There's no one yet :(
+    script.
+        console.log(!{JSON.stringify(entries)})

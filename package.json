@@ -23,7 +23,8 @@
     },
     "homepage": "https://github.com/alexBCN84/lexicon.app#readme",
     "dependencies": {
-        "ansi-red": "^0.1.1",
-        "json-stringify-safe": "5.0.1"
+        "cookie-parser": "^1.4.3",
+        "express": "^4.16.2",
+        "pug": "^2.0.0-rc.4"
     }
 }

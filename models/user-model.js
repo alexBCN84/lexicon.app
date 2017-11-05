@@ -1,6 +1,5 @@
 const util = require('./../util');
-const users = require('./../index');
-const usersService = require('./../services/users');
+
 
 
 module.exports = class User {
