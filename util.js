@@ -2,10 +2,7 @@
 // const Glossary = require('./models/glossary-model');
 // const Entry = require('./models/entry-model');
 
-// // arrays for data storage
-// let users = [],
-//     glossaries = [],
-//     entries = [];
+
 
 module.exports.uuid = () => {
     const S4 = () => (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
@@ -14,25 +11,25 @@ module.exports.uuid = () => {
 
 // // global functions
 
-// const setUpGlossary = (title, author) => {
-//     glossaries = glossaries.concat(new Glossary(title, author.name));
-//     author.glossaries = author.glossaries.concat(glossaries[glossaries.length - 1]);
-//     author.nOfGlossaries++;
-// };
+const setUpGlossary = (title, author) => {
+    glossaries = glossaries.concat(new Glossary(title, author.name));
+    author.glossaries = author.glossaries.concat(glossaries[glossaries.length - 1]);
+    author.nOfGlossaries++;
+};
 
-// const setUpEntries = (term, defOrTrans, author, glossary) => {
-//     entries = entries.concat(new Entry(term, defOrTrans, author.name, glossary.title));
-//     author.entries = author.entries.concat(entries[entries.length - 1]);
-//     glossary.entries = glossary.entries.concat(entries[entries.length - 1]);
-//     author.nOfEntries++;
-//     glossary.nOfEntries++;
-// };
+const setUpEntries = (term, defOrTrans, author, glossary) => {
+    entries = entries.concat(new Entry(term, defOrTrans, author.name, glossary.title));
+    author.entries = author.entries.concat(entries[entries.length - 1]);
+    glossary.entries = glossary.entries.concat(entries[entries.length - 1]);
+    author.nOfEntries++;
+    glossary.nOfEntries++;
+};
 
-// const share = (sender, recipient, materialClass, materialIndex) => {
-//     sender.shares(materialClass, materialIndex, recipient);
-//     if (materialClass === glossaries) materialClass[materialIndex].xShared++;
-//     if (materialClass === entries) materialClass[materialIndex].xShared++;
-// };
+const share = (sender, recipient, materialClass, materialIndex) => {
+    sender.shares(materialClass, materialIndex, recipient);
+    if (materialClass === glossaries) materialClass[materialIndex].xShared++;
+    if (materialClass === entries) materialClass[materialIndex].xShared++;
+};
 
 
 // // instantiating some users
