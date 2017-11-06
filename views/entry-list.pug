@@ -8,15 +8,17 @@ block content
             thead
                 td ID
                 td Term
+                td Translation
                 td Author
             each entry in entries
                 tr
                     td #{entry.id}
                     td #{entry.term}
+                    td #{entry.defOrTrans}
                     td #{entry.author}
 
         pre= JSON.stringify(entries, null, 2)
     else
-        p There's no one yet :(
+        p The list of entries is empty at the moment :(
     script.
         console.log(!{JSON.stringify(entries)})

@@ -1,4 +1,5 @@
 const fs = require('fs')
+const util = require('../util')
 
 const GlossaryModel = require('../models/glossary-model')
 
@@ -18,9 +19,7 @@ function findAll() {
 
 async function add(glossary) {
     const allGlossaries = await findAll()
-    const lastGlossary = allGlossaries[allGlossaries.length - 1]
-    const lastGlossarysId = lastGlossary && lastGlossary.id || 0
-    glossary.id = lastGlossarysId + 1
+    glossary.id = util.uuid()
 
     glossary = GlossaryModel.create(glossary)
     allGlossaries.push(glossary)

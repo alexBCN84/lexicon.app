@@ -1,4 +1,5 @@
 const fs = require('fs')
+const util = require('../util')
 
 const EntryModel = require('../models/entry-model')
 
@@ -18,9 +19,7 @@ function findAll() {
 
 async function add(entry) {
     const allEntries = await findAll()
-    const lastEntry = allEntries[allEntries.length - 1]
-    const lastEntrysId = lastEntry && lastEntry.id || 0
-    entry.id = lastEntrysId + 1
+    entry.id = util.uuid()
 
     entry = EntryModel.create(entry)
     allEntries.push(entry)

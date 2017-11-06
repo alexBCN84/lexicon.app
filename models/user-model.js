@@ -1,10 +1,6 @@
-const util = require('./../util');
-
-
-
 module.exports = class User {
     constructor(id, name, email, bio, location, interests = [], followers = [], skills = [], following = [], glossaries = [],
-        entries = [], nOfEntries = 0, nOfGlossaries = 0, sharing = [], sharedWithMe = [], liked = [], uuid = util.uuid()) {
+        entries = [], nOfEntries = 0, nOfGlossaries = 0, sharing = [], sharedWithMe = [], liked = []) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -21,7 +17,6 @@ module.exports = class User {
         this.sharing = sharing;
         this.sharedWithMe = sharedWithMe;
         this.liked = liked;
-        this.uuid = uuid;
     }
 
     // const instance = (name, email) => new User(name, email);
@@ -62,8 +57,7 @@ module.exports = class User {
             obj.nOfGlossaries,
             obj.sharing,
             obj.sharedWithMe,
-            obj.liked,
-            obj.uuid
+            obj.liked
         );
     }
 

@@ -1,6 +1,7 @@
 const fs = require('fs')
 
 const UserModel = require('../models/user-model')
+const util = require('../util')
 
 const dbPathUser = `${__dirname}/../data/userDatabase.json`
 
@@ -20,9 +21,7 @@ function findAll() {
 
 async function add(user) {
     const allUsers = await findAll()
-    const lastUser = allUsers[allUsers.length - 1]
-    const lastUsersId = lastUser && lastUser.id || 0
-    user.id = lastUsersId + 1
+    user.id = util.uuid()
 
     user = UserModel.create(user)
     allUsers.push(user)

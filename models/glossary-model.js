@@ -1,9 +1,7 @@
-const util = require('./../util');
-
 module.exports = class Glossary {
     constructor(id, title, author, description, area, likes = 0, xShared = 0, status = 'private',
         entries = [], nOfEntries = 0, rating = [{ ratingScores: [] }, { averageRate: 0 }, { median: 0 }],
-        reviews = [], uuid = util.uuid()) {
+        reviews = []) {
         this.id = id;
         this.title = title;
         this.author = author;
@@ -15,8 +13,7 @@ module.exports = class Glossary {
         this.entries = entries;
         this.nOfEntries = nOfEntries;
         this.rating = rating;
-        this.reviews = reviews;
-        this.uuid = uuid;
+        this.reviews = reviews
     }
 
     setDescription(description) { this.description = description; }
@@ -56,8 +53,7 @@ module.exports = class Glossary {
             obj.entries,
             obj.noOfEntries,
             obj.rating,
-            obj.reviews,
-            obj.uuid
+            obj.reviews
         );
     }
 };
