@@ -23,6 +23,17 @@ router.post('/', async(req, res, next) => {
     res.send(user)
 })
 
+router.post('/:userId/following', async(req, res, next) => {
+    const user = await UserService.find(req.params.userId)
+    const target = await UserService.find(req.body.targetId)
+
+    user.following.addToSet(target)
+    target.followers.addToSet(user)
+    await target.save()
+    const updatedUser = await user.save()
+    res.send(updatedUser)
+})
+
 router.delete('/:id', async(req, res, next) => {
     await UserService.del(req.params.id)
     res.send('ok!')
