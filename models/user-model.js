@@ -20,10 +20,11 @@ module.exports = class User {
     }
 
     // const instance = (name, email) => new User(name, email);
-    // setBio(bio) { this.bio = bio; }
-    // setLocation(location) { this.location = location; }
-    // setInterests(...interests) { this.interests = this.interests.concat(...interests); }
-    // setSkills(...skills) { this.skills = this.skills.concat(...skills); }
+    setBio(bio) { this.bio = bio; }
+        // setLocation(location) { this.location = location; }
+        // setInterests(...interests) { this.interests = this.interests.concat(...interests); }
+        // setSkills(...skills) { this.skills = this.skills.concat(...skills); }
+
     follow(followedUser) {
         this.following = this.following.concat(followedUser);
         followedUser.followers = followedUser.followers.concat(this);

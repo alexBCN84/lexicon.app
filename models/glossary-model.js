@@ -1,24 +1,24 @@
 module.exports = class Glossary {
     constructor(id, title, author, description, area, likes = 0, xShared = 0, status = 'private',
-        entries = [], nOfEntries = 0, rating = [{ ratingScores: [] }, { averageRate: 0 }, { median: 0 }],
-        reviews = []) {
-        this.id = id;
-        this.title = title;
-        this.author = author;
-        this.description = description;
-        this.area = area;
-        this.likes = likes;
-        this.xShared = xShared;
-        this.status = status;
-        this.entries = entries;
-        this.nOfEntries = nOfEntries;
-        this.rating = rating;
-        this.reviews = reviews
-    }
+            entries = [], nOfEntries = 0, rating = [{ ratingScores: [] }, { averageRate: 0 }, { median: 0 }],
+            reviews = []) {
+            this.id = id;
+            this.title = title;
+            this.author = author;
+            this.description = description;
+            this.area = area;
+            this.likes = likes;
+            this.xShared = xShared;
+            this.status = status;
+            this.entries = entries;
+            this.nOfEntries = nOfEntries;
+            this.rating = rating;
+            this.reviews = reviews
+        }
+        // setDescription(description) { this.description = description; }
+        // setArea(area) { this.area = area; }
+        // setReview(review) { this.review = review; }
 
-    setDescription(description) { this.description = description; }
-    setArea(area) { this.area = area; }
-    setReview(review) { this.review = review; }
     setRatingAverage() {
         this.rating[1].averageRate = (this.rating[0].ratingScores.reduce((previous, current) =>
             current += previous)) / this.rating[0].ratingScores.length;

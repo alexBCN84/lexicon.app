@@ -24,6 +24,10 @@ app.get('/', (req, res, next) => {
     res.render('index')
 })
 
+app.patch('/:id', (req, res, next) => {
+    res.render('index')
+})
+
 app.listen(3000, () => {
     console.log('Server listening.')
 })
