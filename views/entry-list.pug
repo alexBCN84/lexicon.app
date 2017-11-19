@@ -12,10 +12,10 @@ block content
                 td Author
             each entry in entries
                 tr
-                    td #{entry.id}
+                    td #{entry.entryId}
                     td #{entry.term}
                     td #{entry.defOrTrans}
-                    td #{entry.author}
+                    td #{entry.author.name}
 
         pre= JSON.stringify(entries, null, 2)
     else

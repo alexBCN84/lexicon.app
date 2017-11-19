@@ -2,6 +2,8 @@ const express = require('express')
 const router = express.Router()
 
 const GlossaryService = require('../services/glossary-service')
+const UserService = require('../services/user-service')
+
 
 router.get('/', async(req, res, next) => {
     res.send(await GlossaryService.findAll())
@@ -19,9 +21,12 @@ router.get('/:id', async(req, res, next) => {
 })
 
 router.post('/', async(req, res, next) => {
+    const user = await UserService.find(req.body.author)
     const glossary = await GlossaryService.add(req.body)
-
-    res.send(glossary)
+    user.glossaries.addToSet(glossary)
+    user.nOfGlossaries++
+        await user.save()
+    res.send(user)
 })
 
 router.delete('/:id', async(req, res, next) => {

@@ -11,9 +11,9 @@ block content
                 td Author
             each glossary in glossaries
                 tr
-                    td #{glossary.id}
+                    td #{glossary.glossaryId}
                     td #{glossary.title}
-                    td #{glossary.author}
+                    td #{glossary.author.name}
 
         pre= JSON.stringify(glossaries, null, 2)
     else
