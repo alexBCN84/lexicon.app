@@ -73,9 +73,18 @@ const UserSchema = mongoose.Schema({
         }]
     },
     liked: {
-        users: [{}],
-        glossaries: [{}],
-        entries: [{}]
+        users: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User'
+        }],
+        glossaries: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Glossary'
+        }],
+        entries: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Entry'
+        }]
     }
 })
 

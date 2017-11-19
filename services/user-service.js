@@ -14,6 +14,9 @@ function findAll() {
         .populate('sharing.entries')
         .populate('sharedWithMe.glossaries')
         .populate('sharedWithMe.entries')
+        .populate('liked.users')
+        .populate('liked.glossaries')
+        .populate('liked.entries')
 }
 
 async function add(user) {
@@ -36,6 +39,9 @@ async function find(userId) {
         .populate('sharing.entries')
         .populate('sharedWithMe.glossaries')
         .populate('sharedWithMe.entries')
+        .populate('liked.users')
+        .populate('liked.glossaries')
+        .populate('liked.entries')
 }
 
 module.exports = {

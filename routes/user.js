@@ -132,8 +132,30 @@ router.patch('/:userId/sharing/entries', async(req, res, next) => {
         recipient.save()
         res.send(recipient)
     }
+})
 
+router.patch('/:userId/liked/users', async(req, res, next) => {
+    const user = await UserService.find(req.params.userId)
+    const likedUser = await UserService.find(req.body.targetUser)
+    user.liked.users.addToSet(likedUser)
+    await user.save()
+    res.send(user.liked.users)
+})
 
+router.patch('/:userId/liked/glossaries', async(req, res, next) => {
+    const user = await UserService.find(req.params.userId)
+    const likedGlossary = await GlossaryService.find(req.body.targetGlossary)
+    user.liked.glossaries.addToSet(likedGlossary)
+    await user.save()
+    res.send(user.liked.glossaries)
+})
+
+router.patch('/:userId/liked/entries', async(req, res, next) => {
+    const user = await UserService.find(req.params.userId)
+    const likedEntry = await EntryService.find(req.body.targetEntry)
+    user.liked.entries.addToSet(likedEntry)
+    await user.save()
+    res.send(user.liked.entries)
 })
 
 router.delete('/:userId', async(req, res, next) => {
