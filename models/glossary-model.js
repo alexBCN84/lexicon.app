@@ -19,6 +19,11 @@ const GlossarySchema = mongoose.Schema({
         type: Number,
         default: 0,
         ref: 'Entry'
+    },
+    likes: {
+        type: Number,
+        default: 0,
+        ref: 'Glossary'
     }
 })
 

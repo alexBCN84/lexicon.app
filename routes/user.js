@@ -138,7 +138,9 @@ router.patch('/:userId/liked/users', async(req, res, next) => {
     const user = await UserService.find(req.params.userId)
     const likedUser = await UserService.find(req.body.targetUser)
     user.liked.users.addToSet(likedUser)
+    likedUser.likes++;
     await user.save()
+    await likedUser.save()
     res.send(user.liked.users)
 })
 
@@ -146,7 +148,9 @@ router.patch('/:userId/liked/glossaries', async(req, res, next) => {
     const user = await UserService.find(req.params.userId)
     const likedGlossary = await GlossaryService.find(req.body.targetGlossary)
     user.liked.glossaries.addToSet(likedGlossary)
+    likedGlossary.likes++;
     await user.save()
+    await likedGlossary.save()
     res.send(user.liked.glossaries)
 })
 
@@ -154,7 +158,9 @@ router.patch('/:userId/liked/entries', async(req, res, next) => {
     const user = await UserService.find(req.params.userId)
     const likedEntry = await EntryService.find(req.body.targetEntry)
     user.liked.entries.addToSet(likedEntry)
+    likedEntry.likes++;
     await user.save()
+    await likedEntry.save()
     res.send(user.liked.entries)
 })
 

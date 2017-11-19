@@ -43,6 +43,11 @@ const UserSchema = mongoose.Schema({
         default: 0,
         ref: 'Glossary'
     },
+    likes: {
+        type: Number,
+        default: 0,
+        ref: 'User'
+    },
     entries: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Entry'
@@ -92,23 +97,3 @@ UserSchema.plugin(AutoIncrement, { inc_field: 'userId' })
 
 
 module.exports = mongoose.model('User', UserSchema)
-
-
-
-// module.exports = class User {
-//     constructor(
-//liked = []) {
-
-
-
-//         this.liked = liked;
-//     }
-
-
-
-//     likes(resource) {
-//         this.liked = this.liked.concat(resource);
-//         resource.likes++;
-//     }
-
-// };

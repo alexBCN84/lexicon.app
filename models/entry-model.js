@@ -19,6 +19,11 @@ const EntrySchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         required: true,
         ref: 'Glossary'
+    },
+    likes: {
+        type: Number,
+        default: 0,
+        ref: 'Entry'
     }
 })
 
