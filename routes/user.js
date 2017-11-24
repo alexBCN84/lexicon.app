@@ -108,6 +108,8 @@ router.patch('/:userId/sharing/glossaries', async(req, res, next) => {
         const glossaryShared = await GlossaryService.find(id)
         user.sharing.glossaries.addToSet(glossaryShared)
         user.save()
+        glossaryShared.xShared++;
+        glossaryShared.save()
         recipient.sharedWithMe.glossaries.addToSet(glossaryShared)
         recipient.save()
         res.send(recipient)
@@ -128,6 +130,8 @@ router.patch('/:userId/sharing/entries', async(req, res, next) => {
         const entryShared = await EntryService.find(id)
         user.sharing.entries.addToSet(entryShared)
         user.save()
+        entryShared.xShared++;
+        entryShared.save()
         recipient.sharedWithMe.entries.addToSet(entryShared)
         recipient.save()
         res.send(recipient)

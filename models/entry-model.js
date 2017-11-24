@@ -24,19 +24,22 @@ const EntrySchema = mongoose.Schema({
         type: Number,
         default: 0,
         ref: 'Entry'
+    },
+    xShared: {
+        type: Number,
+        default: 0,
+        ref: 'Entry'
     }
 })
 
 EntrySchema.plugin(AutoIncrement, { inc_field: 'entryId' })
 module.exports = mongoose.model('Entry', EntrySchema)
     // module.exports = class Entry {
-    //     constructor(categories = [], likes = 0, xShared = 0,
+    //     constructor(categories = [],
     //             status = 'private', relatedEntries = [], relatedWords = [], mnemonics = []) {
 
 
 //             this.categories = categories;
-//             this.likes = likes;
-//             this.xShared = xShared;
 //             this.status = status;
 //             this.relatedEntries = relatedEntries;
 //             this.relatedWords = relatedWords;
