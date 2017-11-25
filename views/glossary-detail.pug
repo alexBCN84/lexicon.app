@@ -1,0 +1,11 @@
+extends layout
+
+block content
+    if glossary
+        h1 Glossary title: #{glossary.title}!
+        p Here are the full details for this glossary:
+        pre= JSON.stringify(glossary, null, 2)
+    else
+        h1 There's no such glossary!
+    script.
+        console.log(!{JSON.stringify(glossary)})

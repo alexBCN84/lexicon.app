@@ -1,0 +1,22 @@
+extends layout
+
+block content
+    h1 My glossaries
+    if glossaries.length
+        p Here are the glossaries:
+        table
+            thead
+                td ID
+                td Title
+                td Author
+            each glossary in glossaries
+                tr
+                    td #{glossary.glossaryId}
+                    td #{glossary.title}
+                    td #{glossary.author.name}
+
+        pre= JSON.stringify(glossaries, null, 2)
+    else
+        p The list of glossaries is currently empty :(
+    script.
+        console.log(!{JSON.stringify(glossaries)})

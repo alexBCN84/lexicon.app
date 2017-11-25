@@ -1,0 +1,11 @@
+extends layout
+
+block content
+    if entry
+        h1 Term: #{entry.term}!
+        p Here are the full details for this entry:
+        pre= JSON.stringify(entry, null, 2)
+    else
+        h1 There's no such entry!
+    script.
+        console.log(!{JSON.stringify(entry)})

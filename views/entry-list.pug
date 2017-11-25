@@ -1,0 +1,24 @@
+extends layout
+
+block content
+    h1 List of entries
+    if entries.length
+        p Here are the entries:
+        table
+            thead
+                td ID
+                td Term
+                td Translation
+                td Author
+            each entry in entries
+                tr
+                    td #{entry.entryId}
+                    td #{entry.term}
+                    td #{entry.defOrTrans}
+                    td #{entry.author.name}
+
+        pre= JSON.stringify(entries, null, 2)
+    else
+        p The list of entries is empty at the moment :(
+    script.
+        console.log(!{JSON.stringify(entries)})

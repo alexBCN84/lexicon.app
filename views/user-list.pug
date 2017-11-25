@@ -1,0 +1,22 @@
+extends layout
+
+block content
+    h1 Hey Users!
+    if users.length
+        p Here is a listing of Application's Users:
+        table
+            thead
+                td ID
+                td Name
+                td Email
+            each user in users
+                tr
+                    td #{user.userId}
+                    td #{user.name}
+                    td #{user.email}
+
+        pre= JSON.stringify(users, null, 2)
+    else
+        p There's no one yet :(
+    script.
+        console.log(!{JSON.stringify(users)})
