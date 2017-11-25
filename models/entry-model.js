@@ -29,18 +29,34 @@ const EntrySchema = mongoose.Schema({
         type: Number,
         default: 0,
         ref: 'Entry'
+    },
+    categories: [{
+        type: String,
+        default: []
+    }],
+    status: {
+        type: String,
+        default: 'private'
+    },
+    relatedEntries: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Entry'
+    }],
+    relatedWords: [{
+        type: String
+    }],
+    mnemonics: {
+        type: String,
+        default: 'Here you can write something that will help you remember this term based on memorization techniques.'
     }
 })
 
 EntrySchema.plugin(AutoIncrement, { inc_field: 'entryId' })
 module.exports = mongoose.model('Entry', EntrySchema)
     // module.exports = class Entry {
-    //     constructor(categories = [],
-    //             status = 'private', relatedEntries = [], relatedWords = [], mnemonics = []) {
+    //     constructor(relatedEntries = [], relatedWords = [], mnemonics = []) {
 
 
-//             this.categories = categories;
-//             this.status = status;
 //             this.relatedEntries = relatedEntries;
 //             this.relatedWords = relatedWords;
 //             this.mnemonics = mnemonics;
@@ -50,24 +66,4 @@ module.exports = mongoose.model('Entry', EntrySchema)
 // setRelatedEntries(...relatedEntries) { this.relatedEntries = this.relatedEntries.concat(...relatedEntries); }
 // setRelatedWords(...relatedWords) { this.relatedWords = this.relatedWords.concat(...relatedWords); }
 // setMnemonics(...mnemonics) { this.mnemonics = this.mnemonics.concat(...mnemonics); }
-
-//     print(property) {
-//         console.log(this[property]);
-//     }
-//     static create(obj) {
-//         return new Entry(
-//             obj.id,
-//             obj.term,
-//             obj.defOrTrans,
-//             obj.author,
-//             obj.glossary,
-//             obj.categories,
-//             obj.likes,
-//             obj.xShared,
-//             obj.status,
-//             obj.relatedEntries,
-//             obj.relatedWords,
-//             obj.mnemonics
-//         );
-//     }
 // };
