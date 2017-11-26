@@ -20,6 +20,12 @@ router.get('/:id', async(req, res, next) => {
     res.render('glossary-detail', { glossary })
 })
 
+router.get('/:id/json', async(req, res, next) => {
+    const glossary = await GlossaryService.find(req.params.id)
+    if (!glossary) res.status(404)
+    res.send(glossary)
+})
+
 router.post('/', async(req, res, next) => {
     const user = await UserService.find(req.body.author)
     const glossary = await GlossaryService.add(req.body)

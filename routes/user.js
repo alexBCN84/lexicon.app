@@ -19,6 +19,12 @@ router.get('/:id', async(req, res, next) => {
     res.render('user-detail', { user })
 })
 
+router.get('/:id/json', async(req, res, next) => {
+    const user = await UserService.find(req.params.id)
+    if (!user) res.status(404)
+    res.send(user)
+})
+
 
 router.post('/', async(req, res, next) => {
     const user = await UserService.add(req.body)

@@ -4,7 +4,8 @@
     "description": "Lexicon is an app intended to create, manage, share and learn customized vocabulary. Users can create glossaries individually, collaboratively or both. The app will also provide a review system based on spaced repetition to practice and recall vocabulary. Basing our system on cognitive learning techniques, we aim to bring those new terms from short-time memory to long-term and even long-life memory.",
     "main": "index.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "nyc ava --verbose",
+        "test-watch": "ava --verbose --watch"
     },
     "repository": {
         "type": "git",
@@ -29,5 +30,10 @@
         "mongoose-sequence": "^4.0.1",
         "pug": "^2.0.0-rc.4",
         "salat-pug-bootstrap": "0.0.8"
+    },
+    "devDependencies": {
+        "ava": "^0.23.0",
+        "nyc": "^11.3.0",
+        "supertest": "^3.0.0"
     }
 }
