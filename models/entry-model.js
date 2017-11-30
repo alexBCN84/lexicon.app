@@ -53,17 +53,3 @@ const EntrySchema = mongoose.Schema({
 
 EntrySchema.plugin(AutoIncrement, { inc_field: 'entryId' })
 module.exports = mongoose.model('Entry', EntrySchema)
-    // module.exports = class Entry {
-    //     constructor(relatedEntries = [], relatedWords = [], mnemonics = []) {
-
-
-//             this.relatedEntries = relatedEntries;
-//             this.relatedWords = relatedWords;
-//             this.mnemonics = mnemonics;
-
-//         }
-// setCategories(category) { this.categories = this.categories.concat(category); }
-// setRelatedEntries(...relatedEntries) { this.relatedEntries = this.relatedEntries.concat(...relatedEntries); }
-// setRelatedWords(...relatedWords) { this.relatedWords = this.relatedWords.concat(...relatedWords); }
-// setMnemonics(...mnemonics) { this.mnemonics = this.mnemonics.concat(...mnemonics); }
-// };

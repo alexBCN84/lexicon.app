@@ -9,6 +9,7 @@ function findAll() {
     return EntryModel.find()
         .populate('author')
         .populate('glossary')
+        .populate('relatedEntries')
 }
 
 async function add(entry) {
@@ -25,6 +26,7 @@ async function find(entryId) {
     return EntryModel.findOne({ entryId })
         .populate('author')
         .populate('glossary')
+        .populate('relatedEntries')
 }
 
 module.exports = {

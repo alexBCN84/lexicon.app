@@ -20,13 +20,19 @@ router.get('/:id', async(req, res, next) => {
     res.render('glossary-detail', { glossary })
 })
 
+router.get('/:id/json', async(req, res, next) => {
+    const glossary = await GlossaryService.find(req.params.id)
+    if (!glossary) res.status(404)
+    res.send(glossary)
+})
+
 router.post('/', async(req, res, next) => {
     const user = await UserService.find(req.body.author)
     const glossary = await GlossaryService.add(req.body)
     user.glossaries.addToSet(glossary)
     user.nOfGlossaries++;
     await user.save()
-    res.send(user)
+    res.send(glossary)
 })
 
 // update description
@@ -72,10 +78,9 @@ router.patch('/:glossaryId/reviews', async(req, res, next) => {
 // setting rating
 router.patch('/:glossaryId/rating', async(req, res, next) => {
     const glossary = await GlossaryService.find(req.params.glossaryId)
-    const scores = await glossary.rating.ratingScores
     const newScore = req.body.score
-    scores.push(newScore)
-
+    glossary.rating.ratingScores.push(newScore)
+    const scores = glossary.rating.ratingScores
     const setRatingAverage = () => scores.reduce((previous, current) => current += previous) / scores.length;
     glossary.rating.averageRate = await setRatingAverage()
 
