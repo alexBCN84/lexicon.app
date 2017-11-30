@@ -131,7 +131,7 @@ router.patch('/:userId/sharing/entries', async(req, res, next) => {
     })
 
     if (userEntries.length === 0) {
-        res.send('You can only share your own glossaries')
+        res.send('You can only share your own entries')
     } else {
         const entryShared = await EntryService.find(id)
         user.sharing.entries.addToSet(entryShared)

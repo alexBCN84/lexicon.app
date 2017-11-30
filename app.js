@@ -10,8 +10,9 @@ app.use(bodyParser.json())
 app.use(cookieParser())
 app.set('view engine', 'pug')
 
-const user = require('./routes/user')
+
 const glossary = require('./routes/glossary')
+const user = require('./routes/user')
 const entry = require('./routes/entry')
 
 app.use('/user', user)
