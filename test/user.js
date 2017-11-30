@@ -94,40 +94,45 @@ test('5.0 Follow other Users', async t => {
 })
 
 test('6.0 Update interests', async t => {
-
+    t.plan(4)
     const user = (await request(app)
             .post('/user')
             .send({ name: 'Alejandro Gines', email: 'alejandro@gmail.com' }))
         .body;
 
+    const newInterests = { interests: 'dancing, trainspotting, watching tv' }
     const updateInterests = (await request(app)
         .patch(`/user/${user.userId}/interests`)
-        .send({ interests: "dancing" }))
+        .send(newInterests))
 
     const updatedUser = (await request(app)
         .get(`/user/${user.userId}/json`)).body;
 
-
-    t.deepEqual(updatedUser.interests[0], "dancing")
-
+    t.notDeepEqual(updatedUser.interests, newInterests.interests)
+    t.deepEqual(updatedUser.interests[0], 'dancing')
+    t.deepEqual(updatedUser.interests[1], 'trainspotting')
+    t.deepEqual(updatedUser.interests[2], 'watching tv')
 })
 
 test('7.0 Update skills', async t => {
-
+    t.plan(3)
     const user = (await request(app)
             .post('/user')
             .send({ name: 'Alejandro Gines', email: 'alejandro@gmail.com' }))
         .body;
 
+    const newSkills = { skills: 'new technologies, project management' }
     const updateSkills = (await request(app)
         .patch(`/user/${user.userId}/skills`)
-        .send({ skills: "new technologies" }))
+        .send(newSkills))
 
     const updatedUser = (await request(app)
         .get(`/user/${user.userId}/json`)).body;
 
 
-    t.deepEqual(updatedUser.skills[0], "new technologies")
+    t.notDeepEqual(updatedUser.skills, newSkills.skills)
+    t.deepEqual(updatedUser.skills[0], 'new technologies')
+    t.deepEqual(updatedUser.skills[1], 'project management')
 
 })
 
@@ -138,15 +143,16 @@ test('7.0 Update name', async t => {
             .send({ name: 'Alejandro Gines', email: 'alejandro@gmail.com' }))
         .body;
 
+    const newName = { name: 'Alejandro Gines Martinez' }
     const updateName = (await request(app)
         .patch(`/user/${user.userId}/name`)
-        .send({ name: "Alejandro Gines Martinez" }))
+        .send(newName))
 
     const updatedUser = (await request(app)
         .get(`/user/${user.userId}/json`)).body;
 
 
-    t.deepEqual(updatedUser.name, "Alejandro Gines Martinez")
+    t.deepEqual(updatedUser.name, newName.name)
 
 })
 
@@ -157,15 +163,16 @@ test('8.0 Update email', async t => {
             .send({ name: 'Alejandro Gines', email: 'alejandro@gmail.com' }))
         .body;
 
+    const newEmail = { email: "myUpdatedEmail@gmail.com" }
     const updateEmail = (await request(app)
         .patch(`/user/${user.userId}/email`)
-        .send({ email: "myUpdatedEmail@gmail.com" }))
+        .send(newEmail))
 
     const updatedUser = (await request(app)
         .get(`/user/${user.userId}/json`)).body;
 
 
-    t.deepEqual(updatedUser.email, "myUpdatedEmail@gmail.com")
+    t.deepEqual(updatedUser.email, newEmail.email)
 
 })
 
@@ -176,15 +183,16 @@ test('9.0 Update location', async t => {
             .send({ name: 'Alejandro Gines', email: 'alejandro@gmail.com' }))
         .body;
 
+    const newLocation = { location: 'Barcelona' }
     const updateLocation = (await request(app)
         .patch(`/user/${user.userId}/location`)
-        .send({ location: "Barcelona" }))
+        .send(newLocation))
 
     const updatedUser = (await request(app)
         .get(`/user/${user.userId}/json`)).body;
 
 
-    t.deepEqual(updatedUser.location, "Barcelona")
+    t.deepEqual(updatedUser.location, newLocation.location)
 
 })
 
@@ -196,20 +204,21 @@ test('10.0 Update bio', async t => {
             .send({ name: 'Alejandro Gines', email: 'alejandro@gmail.com' }))
         .body;
 
+    const newBio = { bio: 'I was born in Barcelona in 1984' }
     const updateBio = (await request(app)
         .patch(`/user/${user.userId}/bio`)
-        .send({ bio: "I was born in Barcelona in 1984" }))
+        .send(newBio))
 
     const updatedUser = (await request(app)
         .get(`/user/${user.userId}/json`)).body;
 
 
-    t.deepEqual(updatedUser.bio, "I was born in Barcelona in 1984")
+    t.deepEqual(updatedUser.bio, newBio.bio)
 
 })
 
 test('11.0 sharing Glossaries with other users', async t => {
-    t.plan(5)
+    t.plan(4)
 
     const user = (await request(app)
             .post('/user')
@@ -244,18 +253,66 @@ test('11.0 sharing Glossaries with other users', async t => {
         .get(`/user/${user.userId}/json`)).body;
 
 
-    t.deepEqual(updatedUser.glossaries[0].id, glossary.id)
-    t.deepEqual(updatedUser.sharing.glossaries[0], glossary.body)
+    t.deepEqual(updatedUser.sharing.glossaries[0].id, glossary.id)
 
     const updatedRecipient = (await request(app)
         .get(`/user/${recipient.userId}/json`)).body;
 
-    t.deepEqual(updatedRecipient.sharedWithMe.glossaries[0], glossary.body)
+    t.deepEqual(updatedRecipient.sharedWithMe.glossaries[0].id, glossary.id)
 
 })
 
 
-//test('12.0 sharing Entries with other users', async t => {})
+
+test('12.0 sharing Entries with other users', async t => {
+    t.plan(4)
+
+    const user = (await request(app)
+            .post('/user')
+            .send({ name: 'Alejandro Gines', email: 'alejandro@gmail.com' }))
+        .body;
+
+    const recipient = (await request(app)
+            .post('/user')
+            .send({ name: 'Ian Unger', email: 'ianUnger@gmail.com' }))
+        .body;
+
+
+    const withWrongEntryId = (await request(app)
+        .patch(`/user/${user.userId}/sharing/entries`)
+        .send({ entryId: 26, recipient: recipient.userId }))
+
+    t.is(withWrongEntryId.status, 200)
+    t.is(withWrongEntryId.text, 'You can only share your own entries')
+
+
+    const glossary = (await request(app)
+            .post('/glossary')
+            .send({ title: 'jewellery', author: user.userId }))
+        .body;
+
+    const entry = (await request(app)
+            .post('/entry')
+            .send({ term: 'my term', defOrTrans: 'myDefOrTrans', author: user.userId, glossary: glossary.glossaryId }))
+        .body
+
+
+    const withCorrectEntryId = (await request(app)
+        .patch(`/user/${user.userId}/sharing/entries`)
+        .send({ entryId: entry.entryId, recipient: recipient.userId }))
+
+    const updatedUser = (await request(app)
+        .get(`/user/${user.userId}/json`)).body;
+
+
+    t.deepEqual(updatedUser.sharing.entries[0].id, entry.id)
+
+    const updatedRecipient = (await request(app)
+        .get(`/user/${recipient.userId}/json`)).body;
+
+    t.deepEqual(updatedRecipient.sharedWithMe.entries[0].id, entry.id)
+
+})
 
 test('13.0 user can like other users', async t => {
     t.plan(2)
@@ -285,8 +342,62 @@ test('13.0 user can like other users', async t => {
 })
 
 
-// test('14.0 user can like glossaries', async t => {
-// })
+test('14.0 user can like glossaries', async t => {
+    t.plan(2)
+    const user = (await request(app)
+            .post('/user')
+            .send({ name: 'Alejandro Gines', email: 'alejandro@gmail.com' }))
+        .body;
 
-// test('15.0 user can like entries', async t => {
-// })
+    const glossary = (await request(app)
+            .post('/glossary')
+            .send({ title: 'jewellery', author: user.userId }))
+        .body;
+
+    const likeGlossaries = (await request(app)
+        .patch(`/user/${user.userId}/liked/glossaries`)
+        .send({ targetGlossary: glossary.glossaryId }))
+
+    const updatedUser = (await request(app)
+        .get(`/user/${user.userId}/json`)).body;
+
+    t.deepEqual(user.liked.glossaries[0], glossary.body)
+
+    const updatedGlossary = (await request(app)
+        .get(`/glossary/${glossary.glossaryId}/json`)).body;
+
+    t.deepEqual(updatedGlossary.likes, 1)
+})
+
+
+test('15.0 user can like entries', async t => {
+    t.plan(2)
+    const user = (await request(app)
+            .post('/user')
+            .send({ name: 'Alejandro Gines', email: 'alejandro@gmail.com' }))
+        .body;
+
+    const glossary = (await request(app)
+            .post('/glossary')
+            .send({ title: 'jewellery', author: user.userId }))
+        .body;
+
+    const entry = (await request(app)
+            .post('/entry')
+            .send({ term: 'my term', defOrTrans: 'myDefOrTrans', author: user.userId, glossary: glossary.glossaryId }))
+        .body
+
+    const likeEntries = (await request(app)
+        .patch(`/user/${user.userId}/liked/entries`)
+        .send({ targetEntry: entry.entryId }))
+
+    const updatedUser = (await request(app)
+        .get(`/user/${user.userId}/json`)).body;
+
+    t.deepEqual(user.liked.entries[0], entry.body)
+
+    const updatedEntry = (await request(app)
+        .get(`/entry/${entry.entryId}/json`)).body;
+
+    t.deepEqual(updatedEntry.likes, 1)
+})
