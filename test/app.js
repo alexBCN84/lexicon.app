@@ -2,7 +2,7 @@ import test from 'ava'
 import request from 'supertest'
 import app from '../app'
 
-test('1.0 index page', async t => {
+test('1.0 render index page', async t => {
     const index = await request(app)
         .get('/')
 
@@ -13,7 +13,7 @@ test('1.0 index page', async t => {
 })
 
 
-test('1.0 /:id', async t => {
+test('2.0 render user or glossary or entry', async t => {
     const indexId = await request(app)
         .patch('/:id')
 
@@ -22,13 +22,3 @@ test('1.0 /:id', async t => {
     t.is(indexId.status, 200)
     t.is(indexId.text, indexPage)
 })
-
-
-// app.get('/', (req, res, next) => {
-//     res.render('index')
-// })
-
-
-// app.patch('/:id', (req, res, next) => {
-//     res.render('index')
-// })

@@ -16,7 +16,7 @@ test('1.0 Create new user', async t => {
 
 
 test('2.0 Fetch a user', async t => {
-    t.plan(2)
+    t.plan(3)
 
     const user = (await request(app)
             .post('/user')
@@ -27,11 +27,19 @@ test('2.0 Fetch a user', async t => {
         .get(`/user/${user.userId}/json`)
 
     t.is(fetch.status, 200)
+
     t.deepEqual(fetch.body, user)
+
+    const renderHtml = await request(app)
+        .get(`/user/${user.userId}`)
+
+    t.is(renderHtml.status, 200)
+
 })
 
 
 test('3.0 Get list of users', async t => {
+    t.plan(4)
     const userToCreate = { name: 'Alejandro Gines', email: 'alejandro.ginesmartinez@gmail.com' }
 
     const creation = await request(app)
@@ -44,6 +52,11 @@ test('3.0 Get list of users', async t => {
     t.is(res.status, 200)
     t.true(Array.isArray(res.body), 'Body should be an array')
     t.true(res.body.length > 0)
+
+    const renderHtml = await request(app)
+        .get('/user/all')
+
+    t.is(renderHtml.status, 200)
 });
 
 
