@@ -25,7 +25,7 @@ test('1.0 Create new glossary', async t => {
 
 
 test('2.0 Fetch a glossary', async t => {
-    t.plan(2)
+    t.plan(3)
 
     const user = (await request(app)
             .post('/user')
@@ -45,10 +45,16 @@ test('2.0 Fetch a glossary', async t => {
 
     t.is(fetch.status, 200)
     t.deepEqual(fetch.body.id, glossary.id)
+
+    const renderHtml = await request(app)
+        .get(`/glossary/${glossary.glossaryId}`)
+
+    t.is(renderHtml.status, 200)
 })
 
 
 test('3.0 Get list of glossaries', async t => {
+    t.plan(4)
     const user = (await request(app)
             .post('/user')
             .send({ name: 'Alejandro Gines', email: 'alejandro.ginesmartinez@gmail.com' }))
@@ -66,6 +72,12 @@ test('3.0 Get list of glossaries', async t => {
     t.is(res.status, 200)
     t.true(Array.isArray(res.body), 'Body should be an array')
     t.true(res.body.length > 0)
+
+    const renderHtml = await request(app)
+        .get('/glossary/all')
+
+    t.is(renderHtml.status, 200)
+
 });
 
 

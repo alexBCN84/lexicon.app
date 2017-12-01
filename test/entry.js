@@ -38,7 +38,7 @@ test('1.0 Create new entry', async t => {
 
 
 test('2.0 Fetch an entry', async t => {
-    t.plan(2)
+    t.plan(3)
 
     const user = (await request(app)
             .post('/user')
@@ -62,10 +62,16 @@ test('2.0 Fetch an entry', async t => {
 
     t.is(fetch.status, 200)
     t.deepEqual(fetch.body.id, entry.id)
+
+    const renderHtml = await request(app)
+        .get(`/entry/${entry.entryId}`)
+
+    t.is(renderHtml.status, 200)
 })
 
 
 test('3.0 Get list of entries', async t => {
+    t.plan(4)
     const user = (await request(app)
             .post('/user')
             .send({ name: 'Alejandro Gines', email: 'alejandro.ginesmartinez@gmail.com' }))
@@ -88,6 +94,10 @@ test('3.0 Get list of entries', async t => {
     t.is(res.status, 200)
     t.true(Array.isArray(res.body), 'Body should be an array')
     t.true(res.body.length > 0)
+    const renderHtml = await request(app)
+        .get('/entry/all')
+
+    t.is(renderHtml.status, 200)
 });
 
 
@@ -198,47 +208,38 @@ test('6.0 Toggle Glossary Status', async t => {
 
 test('7.0 Add related entries', async t => {
 
-        const user = (await request(app)
-                .post('/user')
-                .send({ name: 'Alejandro Gines', email: 'alejandro.ginesmartinez@gmail.com' }))
-            .body
+    const user = (await request(app)
+            .post('/user')
+            .send({ name: 'Alejandro Gines', email: 'alejandro.ginesmartinez@gmail.com' }))
+        .body
 
-        const glossary = (await request(app)
-                .post('/glossary')
-                .send({ title: 'my Glossary', author: user.userId }))
-            .body
+    const glossary = (await request(app)
+            .post('/glossary')
+            .send({ title: 'my Glossary', author: user.userId }))
+        .body
 
-        const entry = (await request(app)
-                .post('/entry')
-                .send({ term: 'my term', defOrTrans: 'myDefOrTrans', author: user.userId, glossary: glossary.glossaryId }))
-            .body
+    const entry = (await request(app)
+            .post('/entry')
+            .send({ term: 'my term', defOrTrans: 'myDefOrTrans', author: user.userId, glossary: glossary.glossaryId }))
+        .body
 
-        const relatedEntry = (await request(app)
-                .post('/entry')
-                .send({ term: 'my term', defOrTrans: 'myDefOrTrans', author: user.userId, glossary: glossary.glossaryId }))
-            .body
+    const relatedEntry = (await request(app)
+            .post('/entry')
+            .send({ term: 'my term', defOrTrans: 'myDefOrTrans', author: user.userId, glossary: glossary.glossaryId }))
+        .body
 
-        const related = { relatedEntry: relatedEntry.entryId }
+    const related = { relatedEntry: relatedEntry.entryId }
 
-        const addRelatedEntry = (await request(app)
-            .patch(`/entry/${entry.entryId}/relatedEntries`)
-            .send(related))
+    const addRelatedEntry = (await request(app)
+        .patch(`/entry/${entry.entryId}/relatedEntries`)
+        .send(related))
 
-        const updatedEntry = (await request(app)
-            .get(`/entry/${entry.entryId}/json`)).body;
+    const updatedEntry = (await request(app)
+        .get(`/entry/${entry.entryId}/json`)).body;
 
-        t.deepEqual(updatedEntry.relatedEntries[0].id, relatedEntry.id)
+    t.deepEqual(updatedEntry.relatedEntries[0].id, relatedEntry.id)
 
-    })
-    // add related entries
-    // router.patch('/:entryId/relatedEntries', async(req, res, next) => {
-    //     const entry = await EntryService.find(req.params.entryId)
-    //     const relatedEntry = await EntryService.find(req.body.relatedEntry)
-    //     entry.relatedEntries.addToSet(relatedEntry)
-    //     await entry.save()
-    //     res.send(entry.relatedEntries)
-    // })
-
+})
 
 
 test('8.0 add related words', async t => {
