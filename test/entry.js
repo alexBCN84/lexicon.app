@@ -198,47 +198,38 @@ test('6.0 Toggle Glossary Status', async t => {
 
 test('7.0 Add related entries', async t => {
 
-        const user = (await request(app)
-                .post('/user')
-                .send({ name: 'Alejandro Gines', email: 'alejandro.ginesmartinez@gmail.com' }))
-            .body
+    const user = (await request(app)
+            .post('/user')
+            .send({ name: 'Alejandro Gines', email: 'alejandro.ginesmartinez@gmail.com' }))
+        .body
 
-        const glossary = (await request(app)
-                .post('/glossary')
-                .send({ title: 'my Glossary', author: user.userId }))
-            .body
+    const glossary = (await request(app)
+            .post('/glossary')
+            .send({ title: 'my Glossary', author: user.userId }))
+        .body
 
-        const entry = (await request(app)
-                .post('/entry')
-                .send({ term: 'my term', defOrTrans: 'myDefOrTrans', author: user.userId, glossary: glossary.glossaryId }))
-            .body
+    const entry = (await request(app)
+            .post('/entry')
+            .send({ term: 'my term', defOrTrans: 'myDefOrTrans', author: user.userId, glossary: glossary.glossaryId }))
+        .body
 
-        const relatedEntry = (await request(app)
-                .post('/entry')
-                .send({ term: 'my term', defOrTrans: 'myDefOrTrans', author: user.userId, glossary: glossary.glossaryId }))
-            .body
+    const relatedEntry = (await request(app)
+            .post('/entry')
+            .send({ term: 'my term', defOrTrans: 'myDefOrTrans', author: user.userId, glossary: glossary.glossaryId }))
+        .body
 
-        const related = { relatedEntry: relatedEntry.entryId }
+    const related = { relatedEntry: relatedEntry.entryId }
 
-        const addRelatedEntry = (await request(app)
-            .patch(`/entry/${entry.entryId}/relatedEntries`)
-            .send(related))
+    const addRelatedEntry = (await request(app)
+        .patch(`/entry/${entry.entryId}/relatedEntries`)
+        .send(related))
 
-        const updatedEntry = (await request(app)
-            .get(`/entry/${entry.entryId}/json`)).body;
+    const updatedEntry = (await request(app)
+        .get(`/entry/${entry.entryId}/json`)).body;
 
-        t.deepEqual(updatedEntry.relatedEntries[0].id, relatedEntry.id)
+    t.deepEqual(updatedEntry.relatedEntries[0].id, relatedEntry.id)
 
-    })
-    // add related entries
-    // router.patch('/:entryId/relatedEntries', async(req, res, next) => {
-    //     const entry = await EntryService.find(req.params.entryId)
-    //     const relatedEntry = await EntryService.find(req.body.relatedEntry)
-    //     entry.relatedEntries.addToSet(relatedEntry)
-    //     await entry.save()
-    //     res.send(entry.relatedEntries)
-    // })
-
+})
 
 
 test('8.0 add related words', async t => {
