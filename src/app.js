@@ -9,6 +9,7 @@ const app = express()
 app.use(bodyParser.json())
 app.use(cookieParser())
 app.set('view engine', 'pug')
+app.set('views', `${__dirname}/views`)
 
 
 const glossary = require('./routes/glossary')

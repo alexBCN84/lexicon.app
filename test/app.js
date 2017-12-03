@@ -1,6 +1,6 @@
 import test from 'ava'
 import request from 'supertest'
-import app from '../app'
+import app from '../src/app'
 
 test('1.0 render index page', async t => {
     const index = await request(app)
