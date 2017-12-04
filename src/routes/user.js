@@ -28,7 +28,7 @@ router.get('/:id/json', async(req, res, next) => {
 
 router.post('/', async(req, res, next) => {
     const user = await UserService.add(req.body)
-    res.send(user)
+    res.send('user')
 })
 
 router.patch('/:userId/following', async(req, res, next) => {
