@@ -2,7 +2,7 @@ app:
   autoredeploy: true
   environment:
     - 'DB_URL=mongodb://mongodb/lexiconjs'
-    - VIRTUAL_HOST=lexicon/alexgines.com
+    - VIRTUAL_HOST=lexicon-app.com
   image: 'aginmar84/lexicon-app:latest'
   ports:
     - '3000'
