@@ -1,9 +1,9 @@
 app:
   autoredeploy: true
   environment:
-    - 'DB_URL=mongodb://mongodb/wtm'
-    - VIRTUAL_HOST=app.arm.ag
-  image: 'armaganlonca/wtmbjs-8:latest'
+    - 'DB_URL=mongodb://mongodb/lexiconjs'
+    - VIRTUAL_HOST=lexicon.app
+  image: 'aginmar84/lexicon-app:latest'
   ports:
     - '3000'
   restart: on-failure

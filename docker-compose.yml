@@ -4,10 +4,10 @@ services:
   app:
     build:
       context: .
-      dockerfile: development.Dockerfile
+      dockerfile: Dockerfile
     environment:
-      - VIRTUAL_HOST=app-local.arm.ag
-      - DB_URL=mongodb://mongodb/wtm
+      - VIRTUAL_HOST=app-local-lexicon.app
+      - DB_URL=mongodb://mongodb/lexiconjs
     ports:
       - 3000:3000
     volumes:
