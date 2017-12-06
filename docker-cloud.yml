@@ -1,0 +1,24 @@
+app:
+  autoredeploy: true
+  environment:
+    - 'DB_URL=mongodb://mongodb/lexiconjs'
+    - VIRTUAL_HOST=lexicon.alexgines.com
+  image: 'aginmar84/lexicon-app:latest'
+  ports:
+    - '3000'
+  restart: on-failure
+
+load-balancer:
+  image: 'dockercloud/haproxy:latest'
+  links:
+    - app
+  ports:
+    - '80:80'
+    - '443:443'
+  restart: on-failure
+  roles:
+    - global
+
+mongodb:
+  image: 'mongo:latest'
+  restart: on-failure

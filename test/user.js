@@ -1,6 +1,6 @@
 import test from 'ava'
 import request from 'supertest'
-import app from '../app'
+import app from '../src/app'
 
 test('1.0 Create new user', async t => {
     const userToCreate = { name: 'Alejandro Gines', email: 'alejandro.ginesmartinez@gmail.com' }
