@@ -16,13 +16,17 @@ html(lang="en")
     link(rel="shortcut icon" type="image/png" href="/images/icons/favicon.png")
     
   body
-    .container-fluid
     
-      block header
-        nav.navbar.navbar-inverse
-          .container-fluid
-            .navbar-header
-              a.navbar-brand(href="/") Lexicon
+    block header
+      nav.navbar.navbar-inverse.navbar-fixed-top
+        .container-fluid
+          .navbar-header
+            button.navbar-toggle(type="button" data-toggle="collapse" data-target="#myNavbar")
+              span.icon-bar
+              span.icon-bar
+              span.icon-bar
+            a.navbar-brand(href="/") Lexicon
+          .collapse.navbar-collapse#myNavbar
             ul.nav.navbar-nav
               li.active
                 a(href="/") Home
@@ -42,8 +46,12 @@ html(lang="en")
                   span.glyphicon.glyphicon-log-in 
                   | Login
 
+    br
+    br
+    .container-fluid
       block content
-      block scripts
+    
+    block scripts
     //- Bootstrap jQuery library
     script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")
     //- Bootstrap Latest compiled JavaScript
