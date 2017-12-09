@@ -1,3 +1,4 @@
+// start our app
 const app = require('./app')
 
 app.listen(3000, () => {
