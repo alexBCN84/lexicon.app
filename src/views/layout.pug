@@ -19,7 +19,28 @@ html(lang="en")
     .container-fluid
     
       block header
-        h1 Menu goes here
+        nav.navbar.navbar-inverse
+          .container-fluid
+            .navbar-header
+              a.navbar-brand(href="/") Lexicon
+            ul.nav.navbar-nav
+              li.active
+                a(href="/") Home
+              li
+                a(href="/user/all") Users
+              li
+                a(href="/glossary/all") Glossaries
+              li
+                a(href="/entry/all") Entries
+            ul.nav.navbar-nav.navbar-right
+              li
+                a(href="#")
+                  span.glyphicon.glyphicon-user 
+                  | Sign Up
+              li
+                a(href="#")
+                  span.glyphicon.glyphicon-log-in 
+                  | Login
 
       block content
       block scripts
@@ -27,4 +48,6 @@ html(lang="en")
     script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")
     //- Bootstrap Latest compiled JavaScript
     script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js")
+    //- bundle cliend side javascript
+    //- script(src="/dist/App.bundle.js")
       
