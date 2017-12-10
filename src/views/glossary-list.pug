@@ -14,7 +14,8 @@ block content
                     td #{glossary.glossaryId}
                     td #{glossary.title}
                     td #{glossary.author.name}
-
+        br
+        br
         pre= JSON.stringify(glossaries, null, 2)
     else
         p The list of glossaries is currently empty :(

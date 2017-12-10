@@ -1,3 +1,4 @@
+// start our app
 const app = require('./app')
 
 // import environmental variables from our variables.env file. 
