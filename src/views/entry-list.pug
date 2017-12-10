@@ -16,7 +16,8 @@ block content
                     td #{entry.term}
                     td #{entry.defOrTrans}
                     td #{entry.author.name}
-
+        br
+        br
         pre= JSON.stringify(entries, null, 2)
     else
         p The list of entries is empty at the moment :(

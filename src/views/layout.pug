@@ -12,9 +12,13 @@ html(lang="en")
     script(src="https://unpkg.com/axios@0.17.0/dist/axios.min.js")
 
     //- custom
-    link(rel='stylesheet', href='/dist/style.css')
+    link(rel='stylesheet' href='/dist/style.css' type="text/css")
     link(rel="shortcut icon" type="image/png" href="/images/icons/favicon.png")
-    
+    style footer { position: absolute; right: 0; bottom: 0; left: 0; padding: 1rem; background-color: #efefef; text-align: center; }
+    style body { position: relative; margin: 0; padding-bottom: 6rem; min-height: 100%; }
+    style html { height: 100%; box-sizing: border-box; }
+    style .content { margin: 0 auto; padding-top: 64px; max-width: 640px; width: 94%; }
+    style *, *:before, *:after { box-sizing: inherit; }
   body
     
     block header
@@ -48,9 +52,13 @@ html(lang="en")
 
     br
     br
-    .container-fluid
+    .container-fluid.content
       block content
     
+    block footer
+      footer This footer will always be positioned at the bottom of the page, but 
+        strong not fixed.
+
     block scripts
     //- Bootstrap jQuery library
     script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")
