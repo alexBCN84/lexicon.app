@@ -12,6 +12,9 @@ app.use(cookieParser())
 app.set('view engine', 'pug')
 app.set('views', `${__dirname}/views`)
 
+const path = require('path');
+// serves up static files from the public folder. Anything in public/ will just be served up as the file it is
+app.use(express.static(path.join(__dirname, 'public')));
 
 const glossary = require('./routes/glossary')
 const user = require('./routes/user')
