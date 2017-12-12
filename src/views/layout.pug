@@ -1,7 +1,12 @@
 doctype html
 html(lang="en")
   head
+<<<<<<< HEAD
     //- title= `${title} | ${h.siteName}`
+=======
+    title= `${title} | ${h.siteName}`
+
+>>>>>>> helpers
     meta(charset="utf-8")
     meta(name="viewport" content="width=device-width, initial-scale=1")
     
@@ -28,14 +33,10 @@ html(lang="en")
             a.navbar-brand(href="/") Lexicon
           .collapse.navbar-collapse#myNavbar
             ul.nav.navbar-nav
-              li.active
-                a(href="/") Home
-              li
-                a(href="/user/all") Users
-              li
-                a(href="/glossary/all") Glossaries
-              li
-                a(href="/entry/all") Entries
+              each item in h.menu
+                li(class=(currentPath.startsWith(item.slug) ? 'active' : ''))
+                  a(href=item.slug) #{item.title}
+              
             ul.nav.navbar-nav.navbar-right
               li
                 a(href="#")
