@@ -20,8 +20,11 @@ const glossary = require('./routes/glossary')
 const user = require('./routes/user')
 const entry = require('./routes/entry')
 const index = require('./routes/index')
+
+
 app.use((req, res, next) => {
     res.locals.h = helpers;
+    res.locals.currentPath = req.path;
     next();
 })
 
