@@ -11,13 +11,13 @@ router.get('/', async(req, res, next) => {
 
 router.get('/all', async(req, res, next) => {
     const glossaries = await GlossaryService.findAll()
-    res.render('glossary-list', { glossaries })
+    res.render('glossary-list', { glossaries, title: 'Glossaries' })
 })
 
 router.get('/:id', async(req, res, next) => {
     const glossary = await GlossaryService.find(req.params.id)
 
-    res.render('glossary-detail', { glossary })
+    res.render('glossary-detail', { glossary, title: `${glossary.title}` })
 })
 
 router.get('/:id/json', async(req, res, next) => {
