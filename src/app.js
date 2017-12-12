@@ -14,12 +14,16 @@ app.set('views', `${__dirname}/views`)
 
 const path = require('path');
 // serves up static files from the public folder. Anything in public/ will just be served up as the file it is
-app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(express.static(path.join(__dirname, 'public')))
+const helpers = require('./helpers')
 const glossary = require('./routes/glossary')
 const user = require('./routes/user')
 const entry = require('./routes/entry')
 const index = require('./routes/index')
+app.use((req, res, next) => {
+    res.locals.h = helpers;
+    next();
+})
 
 app.use('/', index)
 app.use('/user', user)
