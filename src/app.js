@@ -19,7 +19,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 const glossary = require('./routes/glossary')
 const user = require('./routes/user')
 const entry = require('./routes/entry')
+const index = require('./routes/index')
 
+app.use('/', index)
 app.use('/user', user)
 app.use('/glossary', glossary)
 app.use('/entry', entry)

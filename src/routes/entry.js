@@ -11,13 +11,13 @@ router.get('/', async(req, res, next) => {
 
 router.get('/all', async(req, res, next) => {
     const entries = await EntryService.findAll()
-    res.render('entry-list', { entries })
+    res.render('entry-list', { entries, title: 'Entries' })
 })
 
 router.get('/:id', async(req, res, next) => {
     const entry = await EntryService.find(req.params.id)
 
-    res.render('entry-detail', { entry })
+    res.render('entry-detail', { entry, title: `${entry.term}` })
 })
 
 router.get('/:id/json', async(req, res, next) => {
