@@ -48,8 +48,14 @@ html(lang="en")
       block content
     
     block footer
-      footer This footer will always be positioned at the bottom of the page, but 
-        strong not fixed.
+      footer 
+        span(style="float: left; margin-left: 10%") FAQ
+        <i class="glyphicon glyphicon-copyright-mark"></i> 
+        strong 2017
+          script.
+            new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());
+          |  LEXICON
+        span(style="float: right; margin-right: 10%") LANGUAGE
 
     block scripts
     //- Bootstrap jQuery library
