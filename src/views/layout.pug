@@ -1,7 +1,7 @@
 doctype html
 html(lang="en")
   head
-    //- title= `${title} | ${h.siteName}`
+    title= `${title} | ${h.siteName}`
     meta(charset="utf-8")
     meta(name="viewport" content="width=device-width, initial-scale=1")
     
@@ -14,11 +14,7 @@ html(lang="en")
     //- custom
     link(rel='stylesheet' href='/dist/style.css' type="text/css")
     link(rel="shortcut icon" type="image/png" href="/images/icons/favicon.png")
-    style footer { position: absolute; right: 0; bottom: 0; left: 0; padding: 1rem; background-color: #efefef; text-align: center; }
-    style body { position: relative; margin: 0; padding-bottom: 6rem; min-height: 100%; }
-    style html { height: 100%; box-sizing: border-box; }
-    style .content { margin: 0 auto; padding-top: 64px; max-width: 640px; width: 94%; }
-    style *, *:before, *:after { box-sizing: inherit; }
+
   body
     
     block header
@@ -32,14 +28,10 @@ html(lang="en")
             a.navbar-brand(href="/") Lexicon
           .collapse.navbar-collapse#myNavbar
             ul.nav.navbar-nav
-              li.active
-                a(href="/") Home
-              li
-                a(href="/user/all") Users
-              li
-                a(href="/glossary/all") Glossaries
-              li
-                a(href="/entry/all") Entries
+              each item in h.menu
+                li(class=(currentPath.startsWith(item.slug) ? 'active' : ''))
+                  a(href=item.slug) #{item.title}
+              
             ul.nav.navbar-nav.navbar-right
               li
                 a(href="#")
@@ -56,8 +48,14 @@ html(lang="en")
       block content
     
     block footer
-      footer This footer will always be positioned at the bottom of the page, but 
-        strong not fixed.
+      footer 
+        span(style="float: left; margin-left: 10%") FAQ
+        <i class="glyphicon glyphicon-copyright-mark"></i> 
+        strong 2017
+          script.
+            new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());
+          |  LEXICON
+        span(style="float: right; margin-right: 10%") LANGUAGE
 
     block scripts
     //- Bootstrap jQuery library
@@ -65,4 +63,5 @@ html(lang="en")
     //- Bootstrap Latest compiled JavaScript
     script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js")
     //- bundle cliend side javascript
-    //- script(src="/dist/App.bundle.js")
+    script(src="/dist/App.bundle.js")
+      
