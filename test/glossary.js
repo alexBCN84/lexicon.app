@@ -210,7 +210,7 @@ test('8.0 give reviews', async t => {
         .body
 
 
-    const newReview = { review: 'This is the a review for this glossary' }
+    const newReview = { review: 'This is a review for this glossary' }
     const updateReview = (await request(app)
         .patch(`/glossary/${glossary.glossaryId}/reviews`)
         .send(newReview))

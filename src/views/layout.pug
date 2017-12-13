@@ -11,6 +11,8 @@ html(lang="en")
     //- Axios:
     script(src="https://unpkg.com/axios@0.17.0/dist/axios.min.js")
 
+    //- Font Awesome
+    link(href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css", rel="stylesheet", integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN", crossorigin="anonymous")
     //- custom
     link(rel='stylesheet' href='/dist/style.css' type="text/css")
     link(rel="shortcut icon" type="image/png" href="/images/icons/favicon.png")
@@ -49,13 +51,13 @@ html(lang="en")
     
     block footer
       footer 
-        span(style="float: left; margin-left: 10%") FAQ
+        span(style="float: left; margin-left: 10%") <i class="fa fa-twitter-square" style="font-size: 120%"></i> <i class="fa fa-facebook-square" style="font-size: 120%"></i> <i class="fa fa-google-plus-square" style="font-size: 120%"></i> 
         <i class="glyphicon glyphicon-copyright-mark"></i> 
         strong 2017
           script.
             new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());
           |  LEXICON
-        span(style="float: right; margin-right: 10%") LANGUAGE
+        span(style="float: right; margin-right: 10%") LANGUAGE | FAQ | SITEMAP
 
     block scripts
     //- Bootstrap jQuery library
