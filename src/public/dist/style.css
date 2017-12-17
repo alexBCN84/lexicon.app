@@ -443,20 +443,22 @@ body {
     padding-top: 64px;
     max-width: 640px;
     width: 94%; }
-    body .content .full-width {
-      width: 90vw;
-      position: relative;
-      left: 50%;
-      right: 50%;
-      margin-left: -45vw;
-      margin-right: -45vw; }
-  body .well-title {
-    text-align: center; }
 
 *,
 *:before,
 *:after {
   -webkit-box-sizing: inherit;
           box-sizing: inherit; }
+
+h2 {
+  text-align: center; }
+
+.row {
+  width: 90vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -45vw;
+  margin-right: -45vw; }
 
 /*# sourceMappingURL=style.css.map*/

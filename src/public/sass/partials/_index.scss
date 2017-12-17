@@ -1,0 +1,7 @@
+h2 {
+    @include text-centered;
+}
+
+.row {
+    @include full-width-content;
+}

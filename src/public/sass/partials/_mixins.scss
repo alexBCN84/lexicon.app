@@ -1,0 +1,12 @@
+@mixin full-width-content {
+    width: 90vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -45vw;
+    margin-right: -45vw;
+}
+
+@mixin text-centered {
+    text-align: center;
+}
