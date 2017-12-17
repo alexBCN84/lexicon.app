@@ -28,6 +28,7 @@ const javascript = {
 const postcss = {
     loader: 'postcss-loader',
     options: {
+        sourceMap: true,
         plugins() { return [autoprefixer({ browsers: 'last 3 versions' })]; }
     }
 };
@@ -58,7 +59,7 @@ const config = {
     output: {
         // path is a built in node module
         // __dirname is a variable from node that gives us the
-        path: path.resolve(__dirname, 'public', 'dist'),
+        path: path.resolve(__dirname, 'src', 'public', 'dist'),
         // we can use "substitutions" in file names like [name] and [hash]
         // name will be `App` because that is what we used above in our entry
         filename: '[name].bundle.js'
