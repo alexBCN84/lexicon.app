@@ -4,4 +4,12 @@ h2 {
 
 .row {
     @include full-width-content;
+    a {
+        color: $default-link-text;
+        text-decoration: none;
+         :hover {
+            color: $hover-text;
+            background-color: $hover-background;
+        }
+    }
 }

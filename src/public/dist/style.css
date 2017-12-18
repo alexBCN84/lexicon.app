@@ -460,5 +460,11 @@ h2 {
   right: 50%;
   margin-left: -45vw;
   margin-right: -45vw; }
+  .row a {
+    color: #2E4053;
+    text-decoration: none; }
+    .row a :hover {
+      color: #F7F9F9;
+      background-color: #2E4053; }
 
 /*# sourceMappingURL=style.css.map*/

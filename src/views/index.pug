@@ -6,13 +6,8 @@ block content
     br
     br
     .row
-        .col-md-4
-            .well
-                h2 Users
-        .col-md-4
-            .well
-                h2 Glossaries
-        .col-md-4
-            .well
-                h2 Entries
-
+        each model in h.models
+            a.col-md-4(href=model.slug)
+                .well
+                    h2 #{model.title}
+                
