@@ -1,22 +1,25 @@
 extends layout
 
 block content
-    h1 Hey Users!
+    h1 #{h.models[0].title}
     if users.length
-        p Here is a listing of Application's Users:
-        table
+       
+        table.table.table-hover.table-responsive
             thead
-                td ID
-                td Name
-                td Email
+                tr
+                    th(scope="col") #
+                    th(scope="col") Name
+                    th(scope="col") Email
+                    
             each user in users
                 tr
                     td #{user.userId}
                     td #{user.name}
                     td #{user.email}
+        
         br
         br    
-        pre= JSON.stringify(users, null, 2)
+        //- pre= JSON.stringify(users, null, 2)
     else
         p There's no one yet :(
     script.

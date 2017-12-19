@@ -31,3 +31,15 @@ body {
 *:after {
     box-sizing: inherit;
 }
+
+li {
+    color: $list-text;
+}
+
+th {
+    @include table-header-font;
+}
+
+td {
+    @include table-body-text;
+}

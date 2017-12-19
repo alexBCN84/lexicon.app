@@ -1,24 +1,24 @@
 extends layout
 
 block content
-    h1 List of entries
+    h1 #{h.models[2].title}
     if entries.length
-        p Here are the entries:
-        table
+        table.table.table-hover.table-responsive
             thead
-                td ID
-                td Term
-                td Translation
-                td Author
+                tr
+                    th(scope="col") #
+                    th(scope="col") Term
+                    th(scope="col") Author
+                    
             each entry in entries
                 tr
                     td #{entry.entryId}
                     td #{entry.term}
-                    td #{entry.defOrTrans}
                     td #{entry.author.name}
+        
         br
         br
-        pre= JSON.stringify(entries, null, 2)
+        //- pre= JSON.stringify(entries, null, 2)
     else
         p The list of entries is empty at the moment :(
     script.

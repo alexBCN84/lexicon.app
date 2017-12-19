@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Lora);html {
+@import url(https://fonts.googleapis.com/css?family=Lora);@import url(https://fonts.googleapis.com/css?family=Inconsolata:700);@import url(https://fonts.googleapis.com/css?family=Cantarell);html {
   -webkit-box-sizing: border-box;
           box-sizing: border-box; }
 
@@ -450,6 +450,19 @@ body {
   -webkit-box-sizing: inherit;
           box-sizing: inherit; }
 
+li {
+  color: #2E4053; }
+
+th {
+  font-family: 'Inconsolata', monospace;
+  color: #2E4053;
+  font-size: 1.5em; }
+
+td {
+  font-family: 'Cantarell', sans-serif;
+  color: #85929E;
+  font-size: 1.3em; }
+
 .quote blockquote {
   border-left: none;
   overflow: hidden;
@@ -486,10 +499,10 @@ body {
   .row h2 {
     text-align: center; }
   .row a {
-    color: #2E4053;
+    color: #85929E;
     text-decoration: none; }
     .row a :hover {
       color: #F7F9F9;
-      background-color: #2E4053; }
+      background-color: #85929E; }
 
 /*# sourceMappingURL=style.css.map*/
