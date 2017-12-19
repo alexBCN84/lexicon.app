@@ -13,24 +13,13 @@ block content
     .row
         each model in h.models
             a.col-md-4(href=model.slug)
-                .well
+                .well.well-sm
                     h2 #{model.title}
 
     .row
-        .col-md-4
-            .well
-                each feat in h.userFeatures
-                    ul.list-group
-                        li.list-group-item #{feat.feature}
-
-        .col-md-4
-            .well
-                each feat in h.glossaryFeatures
-                    ul.list-group
-                        li.list-group-item #{feat.feature}
-        
-        .col-md-4
-            .well
-                each feat in h.entryFeatures
-                    ul.list-group
-                        li.list-group-item #{feat.feature}
+        each feat in h.features
+            .col-md-4
+                .well
+                    each list in feat
+                        ul.list-group
+                            li.list-group-item #{list.feature}

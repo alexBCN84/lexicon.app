@@ -453,9 +453,8 @@ body {
 .quote blockquote {
   border-left: none;
   overflow: hidden;
-  margin-top: -50px;
   padding-top: -100px;
-  margin-top: 25px;
+  margin-top: -10px;
   width: inherit;
   border-radius: 3px;
   -webkit-box-shadow: 2px 2px 2px 2px #ECF0F1;
@@ -464,6 +463,7 @@ body {
 .quote h2 {
   text-align: left;
   margin-top: -10px;
+  margin-bottom: -15px;
   font-weight: bold;
   font-size: 100px;
   font-family: 'Lora', serif;
@@ -472,6 +472,7 @@ body {
 .quote h3 {
   font-family: 'Lora', serif;
   color: #85929E;
+  text-align: center;
   font-size: 2em;
   margin-top: -50px; }
 
