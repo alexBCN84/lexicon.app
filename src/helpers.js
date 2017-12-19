@@ -8,6 +8,6 @@ const menu = [
     { slug: '/entry/all', title: 'Entries' }
 ]
 
-const models = menu.filter(item => item.title !== 'Home')
+const models = menu.filter(model => model.title !== 'Home')
 
-exports = { menu, models }
+module.exports = { menu, models }
