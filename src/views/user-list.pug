@@ -8,15 +8,15 @@ block content
             thead
                 tr
                     th(scope="col") #
-                    th(scope="col") Name
-                    th(scope="col") Glossaries
-                    th(scope="col") Entries
+                    th.center(scope="col") Name
+                    th.center(scope="col") Glossaries
+                    th.center(scope="col") Entries
                     
             each user in users
                 tr
                     td 
                         a(href=`/user/${user.userId}`) #{user.userId}
-                    td #{user.name}
+                    td.center #{user.name}
                     td.center define in schema
                     td.center #{user.nOfEntries}
         

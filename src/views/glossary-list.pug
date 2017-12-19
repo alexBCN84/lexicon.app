@@ -9,16 +9,16 @@ block content
             thead
                 tr
                     th(scope="col") #
-                    th(scope="col") Title
-                    th(scope="col") Author
+                    th.center(scope="col") Title
+                    th.center(scope="col") Author
                     
             each glossary in glossaries
 
                     tr
                         td 
                             a(href=`/glossary/${glossary.glossaryId}`) #{glossary.glossaryId}
-                        td #{glossary.title}
-                        td #{glossary.author.name}
+                        td.center #{glossary.title}
+                        td.center #{glossary.author.name}
                     
         br
         br
