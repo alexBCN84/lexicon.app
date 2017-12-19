@@ -1,8 +1,11 @@
-h2 {
-    @include text-centered;
+.quote {
+    @include quote;
 }
 
 .row {
+    h2 {
+        @include text-centered;
+    }
     @include full-width-content;
     a {
         color: $default-link-text;

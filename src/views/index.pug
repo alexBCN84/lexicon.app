@@ -1,8 +1,13 @@
 extends layout
 
 block content
-
-    h2 Lexicon index page content
+    .row
+        .col-md-3
+        .col-md-6
+            .quote
+                blockquote
+                        h2 “
+                        h3 #{h.motto}
     br
     br
     .row
@@ -10,3 +15,22 @@ block content
             a.col-md-4(href=model.slug)
                 .well
                     h2 #{model.title}
+
+    .row
+        .col-md-4
+            .well
+                each feat in h.userFeatures
+                    ul.list-group
+                        li.list-group-item #{feat.feature}
+
+        .col-md-4
+            .well
+                each feat in h.glossaryFeatures
+                    ul.list-group
+                        li.list-group-item #{feat.feature}
+        
+        .col-md-4
+            .well
+                each feat in h.entryFeatures
+                    ul.list-group
+                        li.list-group-item #{feat.feature}

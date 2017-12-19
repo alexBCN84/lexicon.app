@@ -10,3 +10,28 @@
 @mixin text-centered {
     text-align: center;
 }
+
+@mixin quote {
+    blockquote {
+        border-left: none;
+        overflow: hidden;
+        margin-top: -50px;
+        padding-top: -100px;
+        margin-top: 25px;
+        width: inherit;
+        border-radius: 3px;
+        box-shadow: 2px 2px 2px 2px $shadow;
+    }
+    h2 {
+        text-align: left;
+        margin-top: -10px;
+        font-weight: bold;
+        font-size: 100px;
+        @include quote-font;
+    }
+    h3 {
+        @include quote-font;
+        font-size: 2em;
+        margin-top: -50px;
+    }
+}

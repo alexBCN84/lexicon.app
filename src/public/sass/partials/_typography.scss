@@ -1,1 +1,5 @@
-
+@import url('https://fonts.googleapis.com/css?family=Lora');
+@mixin quote-font {
+    font-family: 'Lora', serif;
+    color: $quote-font;
+}
