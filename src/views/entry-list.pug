@@ -12,7 +12,8 @@ block content
                     
             each entry in entries
                 tr
-                    td #{entry.entryId}
+                    td 
+                        a(href=`/entry/${entry.entryId}`) #{entry.entryId}
                     td #{entry.term}
                     td #{entry.author.name}
         
