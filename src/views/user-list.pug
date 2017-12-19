@@ -9,14 +9,16 @@ block content
                 tr
                     th(scope="col") #
                     th(scope="col") Name
-                    th(scope="col") Email
+                    th(scope="col") Glossaries
+                    th(scope="col") Entries
                     
             each user in users
                 tr
                     td 
                         a(href=`/user/${user.userId}`) #{user.userId}
                     td #{user.name}
-                    td #{user.email}
+                    td.center define in schema
+                    td.center #{user.nOfEntries}
         
         br
         br    

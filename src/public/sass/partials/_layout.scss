@@ -32,6 +32,10 @@ body {
     box-sizing: inherit;
 }
 
+.center {
+    @include text-centered;
+}
+
 li {
     color: $list-text;
 }

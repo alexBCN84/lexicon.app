@@ -450,6 +450,9 @@ body {
   -webkit-box-sizing: inherit;
           box-sizing: inherit; }
 
+.center {
+  text-align: center; }
+
 li {
   color: #2E4053; }
 
