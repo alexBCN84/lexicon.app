@@ -2,7 +2,126 @@ extends layout
 
 block content
     if user
-        h1 Hello #{user.name}! 
+        h1 #{user.name.toUpperCase()} 
+            a(href="https://placeholder.com" style="float: right; border: 1px solid #000; border-radius: 5px;")
+                img(src="http://via.placeholder.com/100x100")
+    
+        h2 About
+        p #{user.bio}
+        p Location: #{user.location}
+        p Email: #{user.email}
+        if user.interests.length > 0
+            p Interests: #{user.interests}.
+        
+        if user.skills.length > 0
+            p Skils: #{user.skills}.
+        
+        if user.followers.length > 0
+            p Followers: 
+                each follower in user.followers
+                    if user.followers.length === user.followers.indexOf(follower) + 1
+                        a(href=`/user/${follower.userId}`) #{follower.name}.
+                    else 
+                        a(href=`/user/${follower.userId}`) #{follower.name}, 
+        
+        if user.following.length > 0
+            p Following: 
+                each followedUser in user.following
+                    if user.following.length === user.following.indexOf(followedUser) + 1
+                        a(href=`/user/${followedUser.userId}`) #{followedUser.name}.
+                    else 
+                        a(href=`/user/${followedUser.userId}`) #{followedUser.name}, 
+
+        h2 My glossaries 
+        h3 I have a total of #{user.nOfGlossaries} 
+            if user.nOfGlossaries === 1 
+                | glossary
+            else
+                | glossaries
+
+
+        if user.glossaries.length === 0
+            p I still have to create my first glossary.
+        else 
+            each glossary in user.glossaries
+                a(href=`/glossary/${glossary.glossaryId}`) 
+                    | #{user.glossaries.indexOf(glossary) + 1}. 
+                    | title: #{glossary.title}  
+                    | | entries: #{glossary.nOfEntries}  
+                    | | topics: 
+                    if glossary.categories.length === 0 
+                        | none specified    
+                    else 
+                        #{glossary.categories}   
+                    | | rating: 
+                    if glossary.rating.ratingScores.length === 0 
+                        | this glossary has no ratings yet.
+                    else 
+                        #{glossary.rating.averageRate} 
+
+        h2 My entries
+        h3 I have a total of #{user.nOfEntries} 
+            if user.nOfEntries === 1 
+                | entry
+            else
+                | entries
+
+        if user.entries.length === 0
+            p I still have no entries.
+        else 
+            each entry in user.entries
+                a(href=`/entry/${entry.entryId}`) 
+                    | #{user.entries.indexOf(entry) + 1}. 
+                    | term: #{entry.term}  
+                    | | glossary: 
+                    each glossary in user.glossaries
+                        if glossary_id === entry.glossary 
+                        | #{glossary.title} 
+                    | | likes: 
+                    if entry.likes === 0 
+                        | no likes yet    
+                    else 
+                        #{entry.likes}   
+                    | | shared #{entry.xShared} times.
+
+        if (user.sharing.glossaries.length || user.sharing.entries.length) > 0  
+            h4 I am sharing with others...
+            if user.sharing.glossaries.length > 0 
+                p the following glossaries: 
+                    each glossary in user.sharing.glossaries
+                        if user.sharing.glossaries.length === user.sharing.glossaries.indexOf(glossary) + 1
+                            a(href=`/glossary/${glossary.glossaryId}`) #{glossary.title}.
+                        else 
+                            a(href=`/glossary/${glossary.glossaryId}`) #{glossary.title}, 
+
+        if user.sharing.entries.length > 0 
+                p the following entries: 
+                    each entry in user.sharing.entries
+                        if user.sharing.entries.length === user.sharing.entries.indexOf(entry) + 1
+                            a(href=`/entry/${entry.entryId}`) #{entry.term}.
+                        else 
+                            a(href=`/entry/${entry.entryId}`) #{entry.term}, 
+
+       
+
+        if (user.sharedWithMe.glossaries.length || user.sharedWithMe.entries.length) > 0 
+            h4 I borrowed from others...
+            if user.sharedWithMe.glossaries.length > 0 
+                p the following glossaries: 
+                    each glossary in user.sharedWithMe.glossaries
+                        if user.sharedWithMe.glossaries.length === user.sharedWithMe.glossaries.indexOf(glossary) + 1
+                            a(href=`/glossary/${glossary.glossaryId}`) #{glossary.title}.
+                        else 
+                            a(href=`/glossary/${glossary.glossaryId}`) #{glossary.title}, 
+
+        if user.sharedWithMe.entries.length > 0 
+                p the following entries: 
+                    each entry in user.sharedWithMe.entries
+                        if user.sharedWithMe.entries.length === user.sharedWithMe.entries.indexOf(entry) + 1
+                            a(href=`/entry/${entry.entryId}`) #{entry.term}.
+                        else 
+                            a(href=`/entry/${entry.entryId}`) #{entry.term}, 
+
         p Here are your full details:
         pre= JSON.stringify(user, null, 2)
     else

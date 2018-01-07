@@ -17,8 +17,10 @@ block content
                     tr
                         td 
                             a(href=`/glossary/${glossary.glossaryId}`) #{glossary.glossaryId}
-                        td.center #{glossary.title}
-                        td.center #{glossary.author.name}
+                        td.center 
+                            a(href=`/glossary/${glossary.glossaryId}`) #{glossary.title}
+                        td.center 
+                            a(href=`/user/${glossary.author.userId}`) #{glossary.author.name}
                     
         br
         br

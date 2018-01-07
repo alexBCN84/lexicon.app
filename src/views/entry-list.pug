@@ -14,8 +14,10 @@ block content
                 tr
                     td 
                         a(href=`/entry/${entry.entryId}`) #{entry.entryId}
-                    td.center #{entry.term}
-                    td.center #{entry.author.name}
+                    td.center 
+                        a(href=`/entry/${entry.entryId}`) #{entry.term}
+                    td.center 
+                        a(href=`/user/${entry.author.userId}`) #{entry.author.name}
         
         br
         br

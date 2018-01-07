@@ -16,7 +16,8 @@ block content
                 tr
                     td 
                         a(href=`/user/${user.userId}`) #{user.userId}
-                    td.center #{user.name}
+                    td.center 
+                        a(href=`/user/${user.userId}`) #{user.name}
                     td.center #{user.nOfGlossaries}
                     td.center #{user.nOfEntries}
         
