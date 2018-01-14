@@ -466,6 +466,12 @@ td {
   color: #85929E;
   font-size: 1.3em; }
 
+a {
+  color: #01A9DB; }
+  a:hover {
+    text-decoration: none;
+    color: #04B4AE; }
+
 .quote blockquote {
   border-left: none;
   overflow: hidden;

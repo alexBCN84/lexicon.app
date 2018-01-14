@@ -17,3 +17,11 @@
     color: $table-body-text;
     font-size: 1.3em;
 }
+
+@mixin clickable {
+    color: $clickable-text;
+    &:hover {
+        text-decoration: none;
+        color: $clickable-text-hover;
+    }
+}

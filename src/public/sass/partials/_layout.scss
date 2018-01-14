@@ -47,3 +47,7 @@ th {
 td {
     @include table-body-text;
 }
+
+a {
+    @include clickable;
+}
